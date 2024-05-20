@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "module": "Node16",
+    "resolveJsonModule": true,
+    "target": "ES2020",
+    "checkJs": true,
+    "strict": true
+  }
+}

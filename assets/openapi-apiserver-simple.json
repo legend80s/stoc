@@ -1,0 +1,455 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "FastAPI", "version": "0.1.0" },
+  "paths": {
+    "/api/foo/v1/bar/{bar_id}": {
+      "delete": {
+        "summary": "Delete Bar",
+        "operationId": "delete_bar_api_foo_v1_bar__bar_id__delete",
+        "parameters": [
+          {
+            "name": "bar_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Bar Id" }
+          },
+          {
+            "name": "x-jwt-payload",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "title": "X-Jwt-Payload" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BaseResponse_str_" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/foo/v1/bars": {
+      "get": {
+        "summary": "Paged Query Bars",
+        "operationId": "paged_query_bars_api_foo_v1_bars_get",
+        "parameters": [
+          {
+            "name": "page_number",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "description": "页码，必填，必须大于0",
+              "title": "Page Number"
+            },
+            "description": "页码，必填，必须大于0"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "exclusiveMaximum": 21,
+              "description": "每页数量，必填，必须大于等于1且小于21",
+              "title": "Page Size"
+            },
+            "description": "每页数量，必填，必须大于等于1且小于21"
+          },
+          {
+            "name": "bar_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "bar name，模糊匹配，可空",
+              "title": "Bar Name"
+            },
+            "description": "bar name，模糊匹配，可空"
+          },
+          {
+            "name": "status_list",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": { "enum": ["0", "1", "2", "3"], "type": "string" }
+                },
+                { "type": "null" }
+              ],
+              "description": "bar状态，0：未激活，1：激活，2：已过期，3：已删除，可为空，也可以包含一个或多个",
+              "title": "Status List"
+            },
+            "description": "bar状态，0：未激活，1：激活，2：已过期，3：已删除，可为空，也可以包含一个或多个"
+          },
+          {
+            "name": "start_time",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "type": "string", "format": "date-time" },
+                { "type": "null" }
+              ],
+              "description": "bar开始时间，可为空",
+              "title": "Start Time"
+            },
+            "description": "bar开始时间，可为空"
+          },
+          {
+            "name": "end_time",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "type": "string", "format": "date-time" },
+                { "type": "null" }
+              ],
+              "description": "bar结束时间，可为空",
+              "title": "End Time"
+            },
+            "description": "bar结束时间，可为空"
+          },
+          {
+            "name": "x-jwt-payload",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "title": "X-Jwt-Payload" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse_PagedQueryBarsResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/foo/v1/bar": {
+      "post": {
+        "summary": "Create Bar",
+        "operationId": "create_bar_api_foo_v1_bar_post",
+        "parameters": [
+          {
+            "name": "x-jwt-payload",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "title": "X-Jwt-Payload" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateBarRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse_CreateBarResponse_"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/foo/v1/baz/completions": {
+      "post": {
+        "summary": "Create Example",
+        "operationId": "create_baz_completion_for_external_api_foo_v1_baz_completions_post",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "title": "foo" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BazCompletionRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/foo/v1/controlled/baz/completions": {
+      "post": {
+        "summary": "Create Example For Internal",
+        "operationId": "create_baz_completion_for_internal_api_foo_v1_controlled_baz_completions_post",
+        "parameters": [
+          {
+            "name": "x-jwt-payload",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "title": "X-Jwt-Payload" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BazCompletionRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BaseResponse_PagedQueryBarsResponse_": {
+        "properties": {
+          "code": { "type": "integer", "title": "Code" },
+          "message": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Message"
+          },
+          "data": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/PagedQueryBarsResponse" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["code"],
+        "title": "BaseResponse[PagedQueryBarsResponse]"
+      },
+      "BaseResponse_CreateBarResponse_": {
+        "properties": {
+          "code": { "type": "integer", "title": "Code" },
+          "message": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Message"
+          },
+          "data": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/CreateBarResponse" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["code"],
+        "title": "BaseResponse[CreateBarResponse]"
+      },
+      "BaseResponse_str_": {
+        "properties": {
+          "code": { "type": "integer", "title": "Code" },
+          "message": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Message"
+          },
+          "data": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": ["code"],
+        "title": "BaseResponse[str]"
+      },
+      "BazCompletionRequest": {
+        "properties": {
+          "model": { "type": "string", "title": "Model" },
+          "messages": {
+            "items": { "$ref": "#/components/schemas/BazMessage" },
+            "type": "array",
+            "title": "Messages"
+          },
+          "temperature": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Temperature"
+          }
+        },
+        "type": "object",
+        "required": ["model", "messages"],
+        "title": "BazCompletionRequest"
+      },
+      "BazMessage": {
+        "properties": {
+          "content": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": ["role", "content"],
+        "title": "BazMessage"
+      },
+      "CreateBarRequest": {
+        "properties": {
+          "bar_name": {
+            "type": "string",
+            "title": "Bar Name x1",
+            "description": "bar名称，必填"
+          },
+          "activated": {
+            "type": "boolean",
+            "title": "Activated",
+            "description": "bar是否激活，必填"
+          }
+        },
+        "type": "object",
+        "required": ["bar_name", "activated"],
+        "title": "CreateBarRequest"
+      },
+      "CreateBarResponse": {
+        "properties": {
+          "bar_id": {
+            "type": "integer",
+            "title": "Bar Id",
+            "description": "bar id，必定存在1"
+          },
+          "bar": {
+            "type": "string",
+            "title": "Bar",
+            "description": "bar，必定存在2"
+          }
+        },
+        "type": "object",
+        "required": ["bar_id", "bar"],
+        "title": "CreateBarResponse"
+      },
+      "PagedQueryBarsResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "description": "Bars总数"
+          },
+          "bars": {
+            "items": { "$ref": "#/components/schemas/GetBarResponse" },
+            "type": "array",
+            "title": "Bars",
+            "descriptions": "当前页返回的bar列表"
+          }
+        },
+        "type": "object",
+        "required": ["total", "bars"],
+        "title": "PagedQueryBarsResponse"
+      },
+      "GetBarResponse": {
+        "properties": {
+          "bar_id": {
+            "type": "integer",
+            "title": "Bar Id",
+            "description": "bar id，必定存在"
+          },
+          "bar_name": {
+            "type": "string",
+            "title": "Bar Name",
+            "description": "bar name，必定存在"
+          },
+          "created_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created Time",
+            "description": "bar的创建时间，必定存在"
+          },
+          "updated_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated Time",
+            "description": "bar的上次更新时间，必定存在"
+          }
+        },
+        "type": "object",
+        "required": ["bar_id", "bar_name", "created_time", "updated_time"],
+        "title": "GetBarResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      }
+    }
+  }
+}
