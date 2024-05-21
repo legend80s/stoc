@@ -14,7 +14,32 @@ const result = await generateTSFromFile(filepath, {
 prettyPrint(result, { debug, typesOnly });
 ```
 
-Output:
+`result` type:
+
+```typescript
+interface Result {
+  list: IGeneratedItem[];
+  total: number;
+}
+
+interface IGeneratedItem
+ /** API path */
+ path: string;
+
+ /** HTTP method */
+ method: string;
+
+ /** HTTP request parameters type */
+ requestParametersType: string;
+
+ /** HTTP request body type */
+ requestBodyType: string;
+
+ /** HTTP response type */
+ responseType: string;
+```
+
+console output:
 
 ```typescript
 export async function list(params: PagedQueryBarsParams) {
@@ -87,8 +112,8 @@ interface GetBarRespData {
 
 ### generateTSFromFile
 
-Generates TypeScript definitions and request code from a given Swagger/OpenAPI JSON file.
+Generate TypeScript definitions and request code from a given Swagger OpenAPI JSON file.
 
 ### generateTSFromSchema
 
-Generates TypeScript definitions and request code from a given Swagger/OpenAPI JSON Schema.
+Generate from Swagger OpenAPI JSON Schema.
