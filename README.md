@@ -1,4 +1,6 @@
-# Stoc - `s`wagger-openapi-json-`to`-`c`lient-code
+# Swaggerer
+
+> Generate client JS request code with TypeScript definitions from Swagger OpenAPI Schema.
 
 ## Example
 
@@ -17,7 +19,7 @@ prettyPrint(result, { debug, typesOnly });
 `result` type:
 
 ```typescript
-interface Result {
+interface IResult {
   list: IGeneratedItem[];
   total: number;
 }
@@ -112,7 +114,7 @@ interface GetBarRespData {
 
 ### generateTSFromFile
 
-Generate TypeScript definitions and request code from a given Swagger OpenAPI JSON file.
+Generate TypeScript definitions and client JS request code from a given Swagger OpenAPI JSON file.
 
 ### generateTSFromSchema
 

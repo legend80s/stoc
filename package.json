@@ -1,7 +1,7 @@
 {
-  "name": "stoc",
+  "name": "swaggerer",
   "version": "1.0.0",
-  "description": "Generate client request code with TypeScript typings through Swagger OpenAPI JSON Schema.",
+  "description": "Generate client request code with TypeScript typings from Swagger OpenAPI JSON Schema.",
   "main": "index.mjs",
   "type": "module",
   "scripts": {
