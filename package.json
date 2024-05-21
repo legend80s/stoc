@@ -15,6 +15,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true
+  },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^11.6.1",
     "json-schema-to-typescript": "^14.0.4",
