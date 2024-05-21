@@ -5,6 +5,11 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
+    "pub:patch": "npm version patch",
+    "pub:minor": "npm version minor",
+    "pub:major": "npm version major",
+    "preversion": "npm test",
+    "postversion": "npm publish && git push && git push --tags",
     "test": "node --test"
   },
   "keywords": [],
