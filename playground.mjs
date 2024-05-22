@@ -1,11 +1,10 @@
-// @ts-check
 import { prettyPrint, generateTSFromFile } from './index.mjs';
 
 const result = await generateTSFromFile(
   '../assets/openapi-apiserver-simple.json',
   {
     typesOnly: false,
-    // interfacePrefix: 'I',
+    interfacePrefix: 'I',
     filter: {
       api: '*',
       method: '*',

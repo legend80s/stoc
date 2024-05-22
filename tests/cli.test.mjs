@@ -105,6 +105,7 @@ it('with both data and params', async () => {
   const actual = await generateTSFromFile(
     '../assets/openapi-apiserver-simple.json',
     {
+      interfacePrefix: 'I',
       filter: {
         api: 'completions$',
         method: 'post',
@@ -123,21 +124,21 @@ it('with both data and params', async () => {
     path: '/api/foo/v1/baz/completions',
     method: 'POST',
     requestParametersType: `
-interface CreateExampleParams {
+interface ICreateExampleParams {
   "api-key"?: string;
 }`.trimStart(),
     requestBodyType: `
-interface BazCompletionRequest {
+interface IBazCompletionRequest {
   model: string;
   messages: BazMessage[];
   temperature?: number | null;
 }
-interface BazMessage {
+interface IBazMessage {
   content: string | null;
 }`.trimStart(),
     responseType: ``,
     code: `
-export async function createExample(params: CreateExampleParams, data: BazCompletionRequest) {
+export async function createExample(params: ICreateExampleParams, data: IBazCompletionRequest) {
   return request('/api/foo/v1/baz/completions', {
     method: 'POST',
     params,
@@ -151,17 +152,17 @@ export async function createExample(params: CreateExampleParams, data: BazComple
     method: 'POST',
     requestParametersType: ``,
     requestBodyType: `
-interface BazCompletionRequest {
+interface IBazCompletionRequest {
   model: string;
   messages: BazMessage[];
   temperature?: number | null;
 }
-interface BazMessage {
+interface IBazMessage {
   content: string | null;
 }`.trimStart(),
     responseType: ``,
     code: `
-export async function createExampleForInternal(data: BazCompletionRequest) {
+export async function createExampleForInternal(data: IBazCompletionRequest) {
   return request('/api/foo/v1/controlled/baz/completions', {
     method: 'POST',
     data,
