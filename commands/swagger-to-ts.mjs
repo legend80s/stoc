@@ -1,5 +1,7 @@
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { codeToANSI } from '@shikijs/cli';
+
 import { generateTSFromFile } from '../lib/generate.mjs';
 
 /**
@@ -40,18 +42,17 @@ export async function swaggerToTS(options) {
 export async function prettyPrint(result, { debug, typesOnly }) {
   const { list, total } = result;
   const printSummary = () =>
-    debug &&
-    console.log(`${list.length}/${total}`, 'API generated successfully');
+    debug && console.log(list.length, '/', total, 'API generated successfully');
 
   if (!typesOnly) {
-    printCode(
+    await printCode(
       // @ts-expect-error code must exist when typesOnly is false
       list.map((item) => item.code),
       { debug }
     );
   }
 
-  printTypes(list, { debug });
+  await printTypes(list, { debug });
 
   printSummary();
 }
@@ -59,9 +60,9 @@ export async function prettyPrint(result, { debug, typesOnly }) {
 /**
  * @param {string[]} codes
  * @param {{ debug: boolean }} options
- * @returns {void}
+ * @returns {Promise<void>}
  */
-function printCode(codes, { debug }) {
+async function printCode(codes, { debug }) {
   for (let index = 0; index < codes.length; index++) {
     const code = codes[index];
     debug &&
@@ -69,8 +70,7 @@ function printCode(codes, { debug }) {
         `// #${index + 1}`
         // `BEGIN --------------------------------------------`
       );
-    console.log(code);
-    console.log();
+    console.log(await highlight(code));
     // debug &&
     //   console.log(
     //     `#${index + 1} END --------------------------------------------`
@@ -83,7 +83,7 @@ function printCode(codes, { debug }) {
  * @param {import('../lib/generate.mjs').IGeneratedItem[]} result
  * @param {Pick<IOptions, 'debug'>} opts
  */
-function printTypes(result, { debug }) {
+async function printTypes(result, { debug }) {
   const unique = new Set();
   const types = [];
   for (let i = 0; i < result.length; i++) {
@@ -126,7 +126,18 @@ function printTypes(result, { debug }) {
     //   );
   }
 
-  console.log(types.map((type) => type.trim()).join('\n\n'));
+  const content = types.map((type) => type.trim()).join('\n\n');
+
+  console.log(await highlight(content));
+}
+
+/**
+ *
+ * @param {string} content
+ * @returns {Promise<string>}
+ */
+async function highlight(content) {
+  return await codeToANSI(content, 'typescript', 'dark-plus');
 }
 
 /**

@@ -14,4 +14,4 @@ const result = await generateTSFromFile(
 
 // console.log('result:', result);
 
-prettyPrint(result, { debug: false, typesOnly: false });
+await prettyPrint(result, { debug: false, typesOnly: false });
