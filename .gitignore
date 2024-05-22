@@ -1,4 +1,6 @@
 node_modules/
 bun.lockb
+package-lock.json
+pnpm-lock.yaml
 assets/openapi-apiserver.json
 assets/reasoning-service.json

@@ -130,7 +130,7 @@ interface ICreateExampleParams {
     requestBodyType: `
 interface IBazCompletionRequest {
   model: string;
-  messages: BazMessage[];
+  messages: IBazMessage[];
   temperature?: number | null;
 }
 interface IBazMessage {
@@ -154,7 +154,7 @@ export async function createExample(params: ICreateExampleParams, data: IBazComp
     requestBodyType: `
 interface IBazCompletionRequest {
   model: string;
-  messages: BazMessage[];
+  messages: IBazMessage[];
   temperature?: number | null;
 }
 interface IBazMessage {

@@ -69,7 +69,7 @@ function printCode(codes, { debug }) {
         `// #${index + 1}`
         // `BEGIN --------------------------------------------`
       );
-    console.log('export', code);
+    console.log(code);
     console.log();
     // debug &&
     //   console.log(
