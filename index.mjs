@@ -1,8 +1,3 @@
 // @ts-check
-import { generateTSFromFile } from './lib/generate.mjs';
-
-// main();
-
-async function main() {
-  return generateTSFromFile('./assets/openapi-apiserver.json');
-}
+export { prettyPrint } from './commands/swagger-to-ts.mjs';
+export { generateTSFromFile } from './lib/generate.mjs';

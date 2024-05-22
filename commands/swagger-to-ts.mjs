@@ -44,20 +44,15 @@ export async function prettyPrint(result, { debug, typesOnly }) {
     debug &&
     console.log(`${list.length}/${total}`, 'API generated successfully');
 
-  if (typesOnly) {
-    printTypes(list, { debug });
-
-    printSummary();
-    return;
+  if (!typesOnly) {
+    printCode(
+      // @ts-expect-error code must exist when typesOnly is false
+      list.map((item) => item.code),
+      { debug }
+    );
   }
 
   printTypes(list, { debug });
-
-  printCode(
-    // @ts-expect-error code must exist when typesOnly is false
-    list.map((item) => item.code),
-    { debug }
-  );
 
   printSummary();
 }

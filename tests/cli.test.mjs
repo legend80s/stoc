@@ -20,11 +20,12 @@ it('with filter', async () => {
   /** @type {typeof actual.list} */
   const expected = [
     {
+      summary: 'Paged Query Bars',
       method: 'GET',
       path: '/api/foo/v1/bars',
 
       code: `
-export async function list(params: PagedQueryBarsParams) {
+export async function pagedQueryBars(params: PagedQueryBarsParams) {
   return request<Data<PagedQueryBarsRespData>>('/api/foo/v1/bars', {
     method: 'GET',
     params,
@@ -118,6 +119,7 @@ it('with both data and params', async () => {
   // console.log('actual:', actual, 'end');
   /** @type {typeof actual.list[0]} */
   const item1 = {
+    summary: 'Create Example',
     path: '/api/foo/v1/baz/completions',
     method: 'POST',
     requestParametersType: `
@@ -135,7 +137,7 @@ interface BazMessage {
 }`.trimStart(),
     responseType: ``,
     code: `
-export async function list(params: CreateExampleParams, data: BazCompletionRequest) {
+export async function createExample(params: CreateExampleParams, data: BazCompletionRequest) {
   return request('/api/foo/v1/baz/completions', {
     method: 'POST',
     params,
@@ -144,6 +146,7 @@ export async function list(params: CreateExampleParams, data: BazCompletionReque
 }`.trimStart(),
   };
   const item2 = {
+    summary: 'Create Example For Internal',
     path: '/api/foo/v1/controlled/baz/completions',
     method: 'POST',
     requestParametersType: ``,
@@ -158,7 +161,7 @@ interface BazMessage {
 }`.trimStart(),
     responseType: ``,
     code: `
-export async function list(data: BazCompletionRequest) {
+export async function createExampleForInternal(data: BazCompletionRequest) {
   return request('/api/foo/v1/controlled/baz/completions', {
     method: 'POST',
     data,
