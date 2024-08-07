@@ -7,8 +7,8 @@ import { generateTSFromFile } from '../lib/generate.mjs';
 /**
  * @typedef {Object} IOptions
  * @property {string} input file path to swagger json
- * @property {string} api only generate typings match the api path, default *
- * @property {string} method only generate typings match the method, default *
+ * @property {string} [api] only generate typings match the api path, default *
+ * @property {string} [method] only generate typings match the method, default *
  * @property {boolean} [debug] debug mode
  * @property {boolean} [typesOnly] only output types
  * }

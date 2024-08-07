@@ -6,6 +6,24 @@
 
 ## Example
 
+### Example#1 `prettyPrint` result `RECOMMENDED`
+
+```ts
+async function main() {
+  await swaggerToTS({
+    input: swaggerJsonFilepath,
+    api: 'baz',
+    // method: '*',
+  });
+}
+
+console.time('swaggerToTS');
+await main();
+console.timeEnd('swaggerToTS');
+```
+
+### Example#2: `prettyPrint` result manually
+
 ```typescript
 const result = await generateTSFromFile(filepath, {
   typesOnly: false,
