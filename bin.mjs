@@ -4,18 +4,21 @@ import { parseArgs } from 'node:util';
 
 import { swaggerToTS } from './index.mjs';
 
-// @ts-expect-error
+/**
+ * @param {Parameters<typeof swaggerToTS>[0]} opts
+ */
 async function main(opts) {
-  console.time('swaggerToTS');
+  opts.debug && console.time('swaggerToTS');
   // console.log('opts:', opts);
 
   await swaggerToTS(opts);
 
-  console.timeEnd('swaggerToTS');
+  opts.debug && console.timeEnd('swaggerToTS');
 }
 
 const args = process.argv.slice(2);
 
+// @ts-expect-error
 main(parse(args));
 
 /**
