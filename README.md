@@ -124,6 +124,12 @@ export async function list(params: PagedQueryBarsParams) {
   });
 }
 
+type Data<T> = {
+  code: number;
+  data: T;
+  message: string;
+};
+
 interface PagedQueryBarsParams {
   /**
    * 页码，必填，必须大于0
