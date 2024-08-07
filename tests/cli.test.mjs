@@ -25,15 +25,15 @@ it('with filter', async () => {
       path: '/api/foo/v1/bars',
 
       code: `
-export async function pagedQueryBars(params: PagedQueryBarsParams) {
-  return request<Data<PagedQueryBarsRespData>>('/api/foo/v1/bars', {
+export async function pagedQueryBars(params: IPagedQueryBarsParams) {
+  return request<Data<IPagedQueryBarsRespData>>('/api/foo/v1/bars', {
     method: 'GET',
     params,
   });
 }`.trimStart(),
 
       requestParametersType: `
-interface PagedQueryBarsParams {
+interface IPagedQueryBarsParams {
   /**
    * 页码，必填，必须大于0
    */
@@ -62,19 +62,19 @@ interface PagedQueryBarsParams {
       requestBodyType: '',
 
       responseType: `
-interface BaseResponsePagedQueryBarsResponse {
+interface IBaseResponsePagedQueryBarsResponse {
   code: number;
   message?: string | null;
-  data?: PagedQueryBarsRespData | null;
+  data?: IPagedQueryBarsRespData | null;
 }
-interface PagedQueryBarsRespData {
+interface IPagedQueryBarsRespData {
   /**
    * Bars总数
    */
   total: number;
-  bars: GetBarResponse[];
+  bars: IGetBarResponse[];
 }
-interface GetBarResponse {
+interface IGetBarResponse {
   /**
    * bar id，必定存在
    */
