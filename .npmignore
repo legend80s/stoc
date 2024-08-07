@@ -1,0 +1,5 @@
+.editorconfig
+.nvmrc
+jsconfig.json
+playground.mjs
+tests/
