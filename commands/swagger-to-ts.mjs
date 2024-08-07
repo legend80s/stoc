@@ -21,12 +21,14 @@ import { generateTSFromFile } from '../lib/generate.mjs';
 export async function swaggerToTS(options) {
   const { input, api, method, debug = false, typesOnly = false } = options;
 
+  const filepath = pathToFileURL(
+    path.isAbsolute(input) ? input : path.join(process.cwd(), input)
+  );
+
   if (debug) {
     console.log('[debug] options:', options);
+    console.log('filepath:', filepath);
   }
-
-  const filepath = pathToFileURL(path.join(process.cwd(), input));
-
   const result = await generateTSFromFile(filepath, {
     debug,
     typesOnly,
