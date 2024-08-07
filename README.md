@@ -1,10 +1,35 @@
-# Swaggerer
+# Swaggered
 
 > 从 Swagger JSON Schema 生成 JavaScript 客户端请求代码并带有严格的 TS 类型。
 >
 > Generate client JS request code with TypeScript definitions from Swagger OpenAPI Schema.
 
 ## Example
+
+### use cli
+
+Generate request code with `api` contains `foo` only:
+
+```bash
+npx swaggered --input ./assets/openapi-3.0.1.json --api foo
+```
+
+All flags:
+
+```bash
+npx swaggered \
+  --input ./assets/openapi-3.0.1.json \
+  --api evaluate \
+  --method get \
+  --debug=false \
+  --typesOnly=false
+```
+
+- only `input` is required.
+
+### Example#2 `prettyPrint` result `NOT RECOMMENDED`
+
+```ts
 
 ### Example#1 `prettyPrint` result `RECOMMENDED`
 
