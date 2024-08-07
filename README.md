@@ -4,9 +4,9 @@
 >
 > Generate client JS request code with TypeScript definitions from Swagger OpenAPI Schema.
 
-## Example
+## Get Started
 
-### use cli
+### 1. Use CLI `RECOMMENDED`
 
 Generate request code with `api` contains `foo` only:
 
@@ -27,11 +27,7 @@ npx swaggered \
 
 - only `input` is required.
 
-### Example#2 `prettyPrint` result `NOT RECOMMENDED`
-
-```ts
-
-### Example#1 `prettyPrint` result `RECOMMENDED`
+### 2. Use programmatically. `prettyPrint` automatically
 
 ```ts
 async function main() {
@@ -47,7 +43,7 @@ await main();
 console.timeEnd('swaggerToTS');
 ```
 
-### Example#2: `prettyPrint` result manually
+### 3. Use Programmatically. `prettyPrint` result or do whatever you want
 
 ```typescript
 const result = await generateTSFromFile(filepath, {
