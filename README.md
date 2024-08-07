@@ -23,8 +23,9 @@
 - [x] **Strict TS Types**: Generate client code with `strict TS types` and comments in `tsdoc`
 - [x] **Filterable**: You can generate only what you need use `filter` by `api` path and HTTP `method`
 - [x] **Flexible Usage**: Can be used through CLI or programmatically
-- [ ] **Flexible Format**: You can generate standalone request functions or by group
-- [ ] **Flexible Format**: You can generate request code with customized template
+- [ ] **Flexible Format**:
+  - [ ] You can generate standalone request functions or by group
+  - [ ] You can generate request code with customized template
 - [x] **Pretty Print**: Highlight output with `shikijs`
 - [x] **Battlefield tested**: Support all Swagger OpenAPI versions
 - [x] **Unit tested**
