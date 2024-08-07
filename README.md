@@ -1,5 +1,19 @@
 # Swaggered
 
+<p>
+  <a href="https://www.npmjs.com/package/swaggered" target="_blank">
+    <img src="https://img.shields.io/npm/v/swaggered.svg" alt="npm version" />
+  </a>
+
+  <a href="https://www.npmjs.com/package/swaggered">
+    <img src="https://img.shields.io/npm/dm/swaggered.svg" alt="npm downloads" />
+  </a>
+
+  <a href="https://www.npmjs.com/package/git-commit-msg-linter" target="_blank">
+    <img alt="lint by git commit msg linter" src="https://img.shields.io/badge/git-commit%20msg%20linter-blue" />
+  </a>
+</p>
+
 > 从 Swagger JSON Schema 生成 JavaScript 客户端请求代码并带有严格的 TS 类型。
 >
 > Generate client JS request code with TypeScript definitions from Swagger OpenAPI Schema.
@@ -27,6 +41,7 @@ npx swaggered \
 ```
 
 - only `input` is required.
+
 </details>
 
 ### 2. Use programmatically. `prettyPrint` automatically
@@ -84,6 +99,7 @@ interface IGeneratedItem
  /** HTTP response type */
  responseType: string;
 ```
+
 </details>
 
 <details>
@@ -155,6 +171,7 @@ interface GetBarRespData {
   updated_time: string;
 }
 ```
+
 </details>
 
 ## API
