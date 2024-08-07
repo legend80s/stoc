@@ -14,7 +14,8 @@ Generate request code with `api` contains `foo` only:
 npx swaggered --input ./assets/openapi-3.0.1.json --api foo
 ```
 
-All flags:
+<details>
+  <summary>All flags:</summary>
 
 ```bash
 npx swaggered \
@@ -26,6 +27,7 @@ npx swaggered \
 ```
 
 - only `input` is required.
+</details>
 
 ### 2. Use programmatically. `prettyPrint` automatically
 
@@ -57,7 +59,8 @@ const result = await generateTSFromFile(filepath, {
 prettyPrint(result, { debug, typesOnly });
 ```
 
-`result` type:
+<details>
+  <summary>`result` type:</summary>
 
 ```typescript
 interface IResult {
@@ -81,8 +84,10 @@ interface IGeneratedItem
  /** HTTP response type */
  responseType: string;
 ```
+</details>
 
-console output:
+<details>
+  <summary>`prettyPrint` output:</summary>
 
 ```typescript
 export async function list(params: PagedQueryBarsParams) {
@@ -150,6 +155,7 @@ interface GetBarRespData {
   updated_time: string;
 }
 ```
+</details>
 
 ## API
 
