@@ -1,5 +1,7 @@
 # Swaggerer
 
+> 从 Swagger JSON Schema 生成 JavaScript 客户端请求代码并带有严格的 TS 类型。
+>
 > Generate client JS request code with TypeScript definitions from Swagger OpenAPI Schema.
 
 ## Example
