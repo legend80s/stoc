@@ -21,10 +21,15 @@ it('with filter', async () => {
   const expected = [
     {
       summary: 'Paged Query Bars',
+      description: undefined,
       method: 'GET',
       path: '/api/foo/v1/bars',
 
-      code: `
+      code:
+        '/**\n' +
+        ' * Paged Query Bars\n' +
+        ' */\n' +
+        `
 export async function pagedQueryBars(params: IPagedQueryBarsParams) {
   return request<Data<IPagedQueryBarsRespData>>('/api/foo/v1/bars', {
     method: 'GET',
@@ -105,7 +110,7 @@ it('with both data and params', async () => {
   const actual = await generateTSFromFile(
     '../assets/openapi-apiserver-simple.json',
     {
-      interfacePrefix: 'I',
+      interfacePrefix: '',
       filter: {
         api: 'completions$',
         method: 'post',
@@ -120,25 +125,29 @@ it('with both data and params', async () => {
   // console.log('actual:', actual, 'end');
   /** @type {typeof actual.list[0]} */
   const item1 = {
+    description: undefined,
     summary: 'Create Example',
     path: '/api/foo/v1/baz/completions',
     method: 'POST',
     requestParametersType: `
-interface ICreateExampleParams {
+interface CreateExampleParams {
   "api-key"?: string;
 }`.trimStart(),
     requestBodyType: `
-interface IBazCompletionRequest {
+interface BazCompletionRequest {
   model: string;
-  messages: IBazMessage[];
+  messages: BazMessage[];
   temperature?: number | null;
 }
-interface IBazMessage {
+interface BazMessage {
   content: string | null;
 }`.trimStart(),
     responseType: ``,
-    code: `
-export async function createExample(params: ICreateExampleParams, data: IBazCompletionRequest) {
+    code:
+      '/**\n' +
+      ' * Create Example\n' +
+      ' */\n' +
+      `export async function createExample(params: CreateExampleParams, data: BazCompletionRequest) {
   return request('/api/foo/v1/baz/completions', {
     method: 'POST',
     params,
@@ -147,22 +156,27 @@ export async function createExample(params: ICreateExampleParams, data: IBazComp
 }`.trimStart(),
   };
   const item2 = {
+    description: undefined,
     summary: 'Create Example For Internal',
     path: '/api/foo/v1/controlled/baz/completions',
     method: 'POST',
     requestParametersType: ``,
     requestBodyType: `
-interface IBazCompletionRequest {
+interface BazCompletionRequest {
   model: string;
-  messages: IBazMessage[];
+  messages: BazMessage[];
   temperature?: number | null;
 }
-interface IBazMessage {
+interface BazMessage {
   content: string | null;
 }`.trimStart(),
     responseType: ``,
-    code: `
-export async function createExampleForInternal(data: IBazCompletionRequest) {
+    code:
+      '/**\n' +
+      ' * Create Example For Internal\n' +
+      ' */\n' +
+      `
+export async function createExampleForInternal(data: BazCompletionRequest) {
   return request('/api/foo/v1/controlled/baz/completions', {
     method: 'POST',
     data,

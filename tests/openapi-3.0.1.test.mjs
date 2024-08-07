@@ -1,7 +1,6 @@
 import { deepStrictEqual } from 'node:assert';
 import { it } from 'node:test';
 
-// import { swaggerToTS } from '../index.mjs';
 import { generateTSFromFile } from '../index.mjs';
 
 const fp = '../assets/openapi-3.0.1.json';
@@ -21,7 +20,10 @@ it('with openapi 3.0.1', async () => {
   const expected = [
     {
       code:
-        'export async function listFoo(params: IListFooParams) {\n' +
+        '/**\n' +
+        ' * 分页查询foo作业\n' +
+        ' */\n' +
+        `export async function listFoo(params: IListFooParams) {\n` +
         "  return request<Data<IListFooRespData>>('/api/bar/v1/baz/foo/list', {\n" +
         "    method: 'GET',\n" +
         '    params,\n' +
@@ -57,6 +59,7 @@ it('with openapi 3.0.1', async () => {
         '  }[];\n' +
         '}',
       summary: 'listFoo',
+      description: '分页查询foo作业',
     },
   ];
 
@@ -65,11 +68,13 @@ it('with openapi 3.0.1', async () => {
   deepStrictEqual(actual.list, expected);
 });
 
+// import { swaggerToTS } from '../index.mjs';
+
 // async function main() {
 //   console.time('swaggerToTS');
 
 //   await swaggerToTS({
-//     input: fp,
+//     input: './assets/openapi-3.0.1.json',
 //     api: 'baz',
 //     // method: '*',
 //   });

@@ -20,7 +20,7 @@
 
 ## Features
 
-- [x] **Strict TS Types**: Generate client code with `strict TS types` and comments in `ts-doc`
+- [x] **Strict TS Types**: Generate client code with `strict TS types` and comments in `tsdoc`
 - [x] **Filterable**: You can generate only what you need use `filter` by `api` path and HTTP `method`
 - [x] **Flexible Usage**: Can be used through CLI or programmatically
 - [ ] **Flexible Format**: You can generate standalone request functions or by group
