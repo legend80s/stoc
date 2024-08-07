@@ -2,4 +2,7 @@
 .nvmrc
 jsconfig.json
 playground.mjs
+bun.lockb
+
 tests/
+assets/

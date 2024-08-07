@@ -15,13 +15,28 @@
     "postversion": "npm publish && git push && git push --tags",
     "test": "node --test"
   },
-  "keywords": [],
-  "author": "",
+  "author": "legend80s",
   "license": "ISC",
   "prettier": {
     "trailingComma": "es5",
     "singleQuote": true
   },
+  "homepage": "https://github.com/legend80s/stoc",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legend80s/stoc.git"
+  },
+  "keywords": [
+    "swagger",
+    "swagger-gen",
+    "swagger-ts-gen",
+    "openapi",
+    "typescript",
+    "client",
+    "request",
+    "code",
+    "generator"
+  ],
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^11.6.1",
     "@shikijs/cli": "^1.6.0",

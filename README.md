@@ -18,6 +18,16 @@
 >
 > Generate client JS request code with TypeScript definitions from Swagger OpenAPI Schema.
 
+## Features
+
+- [x] **Strict TS Types**: Generate client code with `strict TS types` and comments in `ts-doc`
+- [x] **Filterable**: You can generate only what you need use `filter` by `api` path and HTTP `method`
+- [x] **Flexible Usage**: Can be used through CLI or programmatically
+- [ ] **Flexible Format**: You can generate standalone request functions or by group
+- [x] **Pretty Print**: Highlight output with `shikijs`
+- [x] **Battlefield tested**: Support all Swagger OpenAPI versions
+- [x] **Unit tested**
+
 ## Get Started
 
 ### 1. Use CLI `RECOMMENDED`
@@ -25,7 +35,7 @@
 Generate request code with `api` contains `foo` only:
 
 ```bash
-npx swaggered --input ./assets/openapi-3.0.1.json --api foo
+npx swaggered --input ./assets/openapi.json --api foo
 ```
 
 <details>
