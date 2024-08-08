@@ -43,16 +43,21 @@ npx swaggered --input ./assets/openapi.json --api foo
 <details>
   <summary>All flags:</summary>
 
-```bash
-npx swaggered \
-  --input ./assets/openapi-3.0.1.json \
-  --api evaluate \
-  --method get \
-  --debug=false \
-  --typesOnly=false
-```
+*only `input` is required.*
 
-- only `input` is required.
+```bash
+┌───────────┬───────────┬───────┬────────────────────────────────────────────────────┬──────────┬─────────┐
+│ (index)   │ type      │ short │ description                                        │ required │ default │
+├───────────┼───────────┼───────┼────────────────────────────────────────────────────┼──────────┼─────────┤
+│ help      │ 'boolean' │ 'h'   │ 'Show this help message'                           │ '×'      │ false   │
+│ input     │ 'string'  │ 'i'   │ 'Input file path of swagger json'                  │ '√'      │         │
+│ api       │ 'string'  │ 'a'   │ 'Generate typings match the API path, default `*`' │ '×'      │ '*'     │
+│ method    │ 'string'  │ 'm'   │ 'Generate code match the HTTP method, default `*`' │ '×'      │ '*'     │
+│ debug     │ 'boolean' │       │ 'Print debug info'                                 │ '×'      │ false   │
+│ typesOnly │ 'boolean' │       │ 'Generate only types'                              │ '×'      │ false   │
+│ grouped   │ 'boolean' │       │ 'Print functions by group'                         │ '×'      │ false   │
+└───────────┴───────────┴───────┴────────────────────────────────────────────────────┴──────────┴─────────┘
+```
 
 </details>
 
