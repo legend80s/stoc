@@ -3,17 +3,69 @@
 import { parseArgs } from 'node:util';
 import { swaggerToTS } from './index.mjs';
 
+const options = {
+  help: {
+    type: 'boolean',
+    short: 'h',
+    description: 'Show this help message',
+    required: '×',
+    default: false,
+  },
+  input: {
+    type: 'string',
+    short: 'i',
+    description: 'Input file path of swagger json',
+    required: '√',
+  },
+  api: {
+    type: 'string',
+    short: 'a',
+    description: 'Generate typings match the API path, default `*`',
+    default: '*',
+    required: '×',
+  },
+  method: {
+    type: 'string',
+    short: 'm',
+    description: 'Generate code match the HTTP method, default `*`',
+    default: '*',
+    required: '×',
+  },
+
+  debug: {
+    type: 'boolean',
+    default: false,
+    description: 'Print debug info',
+    required: '×',
+    short: 'd',
+  },
+
+  typesOnly: {
+    type: 'boolean',
+    default: false,
+    description: 'Generate only types',
+    required: '×',
+  },
+
+  grouped: {
+    type: 'boolean',
+    default: false,
+    description: 'Print functions by group',
+    required: '×',
+  },
+};
+
 /**
- * @param {{values: { help:boolean } & Parameters<typeof swaggerToTS>[0]; options: any}} opts
+ * @param {{ parsed: { help:boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
  */
-async function main({ values, options }) {
-  if (values.help) {
+async function main({ parsed, options }) {
+  if (parsed.help) {
     await printHelp(options);
 
     return;
   }
 
-  const { help, ...opts } = options;
+  const { help, ...opts } = parsed;
 
   opts.debug && console.time('swaggerToTS');
   // console.log('opts:', opts);
@@ -38,64 +90,15 @@ main(parse(args));
  * { input: './assets/openapi-3.0.1.json', api: 'evaluate' }
  */
 function parse(args) {
-  const options = {
-    help: {
-      type: 'boolean',
-      short: 'h',
-      description: 'Show this help message',
-      required: '×',
-      default: false,
-    },
-    input: {
-      type: 'string',
-      short: 'i',
-      description: 'Input file path of swagger json',
-      required: '√',
-    },
-    api: {
-      type: 'string',
-      short: 'a',
-      description: 'Generate typings match the API path, default `*`',
-      default: '*',
-      required: '×',
-    },
-    method: {
-      type: 'string',
-      short: 'm',
-      description: 'Generate code match the HTTP method, default `*`',
-      default: '*',
-      required: '×',
-    },
-
-    debug: {
-      type: 'boolean',
-      default: false,
-      description: 'Print debug info',
-      required: '×',
-    },
-
-    typesOnly: {
-      type: 'boolean',
-      default: false,
-      description: 'Generate only types',
-      required: '×',
-    },
-
-    grouped: {
-      type: 'boolean',
-      default: false,
-      description: 'Print functions by group',
-      required: '×',
-    },
-  };
-
   // @ts-expect-error
   const { values } = parseArgs({ args, options });
 
-  // console.log('args:', args);
-  // console.log('values:', values);
+  if (values.debug) {
+    console.log('args:', args);
+    console.log('values:', values);
+  }
 
-  return { values, options };
+  return { parsed: values, options };
 }
 
 // @ts-expect-error

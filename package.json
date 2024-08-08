@@ -13,7 +13,8 @@
     "pub:major": "npm version major",
     "preversion": "npm test",
     "postversion": "npm publish && git push && git push --tags",
-    "test": "node --test"
+    "bin-test": "node bin.mjs --input ./assets/openapi-3.0.1.json --api foo",
+    "test": "node --test && npm run bin-test"
   },
   "author": "legend80s",
   "license": "ISC",

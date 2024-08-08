@@ -32,13 +32,15 @@ export async function swaggerToTS(options) {
     typesOnly = false,
     grouped = false,
   } = options;
+  if (debug) {
+    console.log('[debug] options:', options);
+  }
 
   const filepath = pathToFileURL(
     path.isAbsolute(input) ? input : path.join(process.cwd(), input)
   );
 
   if (debug) {
-    console.log('[debug] options:', options);
     console.log('filepath:', filepath);
   }
 
