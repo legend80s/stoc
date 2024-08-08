@@ -118,7 +118,9 @@ async function printByGroup(list) {
     const serviceName = isVariableName(groupLabel) || toServiceName(items);
 
     // @ts-expect-error
-    const funcs = items.map((item) => prefixSpacesToEveryNewLine(item.code));
+    const funcs = items.map((item) =>
+      prefixSpacesToEveryNewLine(item.code.replace(' function ', ' '))
+    );
     const prefix = `/** ${groupLabel} */\nexport const ${serviceName}Service${serviceName ? '' : idx === 0 ? '' : idx} = {`;
     const suffix = '};';
 
