@@ -64,7 +64,7 @@ export async function swaggerToTS(options) {
  * @param {Awaited<ReturnType<typeof generateTSFromFile>>} result
  * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped'>} opts
  */
-export async function prettyPrint(result, { debug, typesOnly, grouped }) {
+export async function prettyPrint(result, { debug, typesOnly, grouped } = {}) {
   const { list, total } = result;
   const printSummary = () =>
     debug && console.log(list.length, '/', total, 'API generated successfully');
