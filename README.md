@@ -14,13 +14,13 @@
   </a>
 </p>
 
-> 从 Swagger JSON Schema 生成 **TypeScript 客户端请求**代码并带有**严格的 TS 类型**和**丰富的注释**。
+> 从 Swagger JSON Schema 生成 TypeScript **客户端请求**代码并带有**严格的 TS 类型**和**丰富的注释**。
 >
 > Generate client **request code** with **TypeScript typings** and as many **comments** as possible from Swagger OpenAPI Schema.
 
 ## Features
 
-- [x] **Strict TS Types**: Generate client code with `strict TS types` and keep the original **comments** in `tsdoc`
+- [x] **Strict TS Types**: Generate client code with `strict TS types` and keep the original `comments` in `tsdoc`
 - [x] **Filterable**: You can generate only what you need use `filter` by `api` path and HTTP `method`
 - [x] **Flexible Usage**: Can be used through CLI or programmatically
 - [ ] **Flexible Format**:
