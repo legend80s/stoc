@@ -22,6 +22,7 @@ it('with filter', async () => {
     {
       summary: 'Paged Query Bars',
       description: undefined,
+      group: '',
       method: 'GET',
       path: '/api/foo/v1/bars',
 
@@ -126,6 +127,7 @@ it('with both data and params', async () => {
   /** @type {typeof actual.list[0]} */
   const item1 = {
     description: undefined,
+    group: '',
     summary: 'Create Example',
     path: '/api/foo/v1/baz/completions',
     method: 'POST',
@@ -157,6 +159,7 @@ interface BazMessage {
   };
   const item2 = {
     description: undefined,
+    group: '',
     summary: 'Create Example For Internal',
     path: '/api/foo/v1/controlled/baz/completions',
     method: 'POST',

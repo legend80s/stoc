@@ -3,6 +3,10 @@ import { pathToFileURL } from 'node:url';
 import { codeToANSI } from '@shikijs/cli';
 
 import { generateTSFromFile } from '../lib/generate.mjs';
+import {
+  isVariableName,
+  prefixSpacesToEveryNewLine,
+} from '../lib/lite-lodash.mjs';
 
 /**
  * @typedef {Object} IOptions
@@ -11,6 +15,7 @@ import { generateTSFromFile } from '../lib/generate.mjs';
  * @property {string} [method] only generate typings match the method, default *
  * @property {boolean} [debug] debug mode
  * @property {boolean} [typesOnly] only output types
+ * @property {boolean} [grouped] should `prettyPrint` output grouped by api, default `false`
  * }
  */
 
@@ -19,7 +24,14 @@ import { generateTSFromFile } from '../lib/generate.mjs';
  * @returns {Promise<void>}
  */
 export async function swaggerToTS(options) {
-  const { input, api, method, debug = false, typesOnly = false } = options;
+  const {
+    input,
+    api,
+    method,
+    debug = false,
+    typesOnly = false,
+    grouped = false,
+  } = options;
 
   const filepath = pathToFileURL(
     path.isAbsolute(input) ? input : path.join(process.cwd(), input)
@@ -29,34 +41,58 @@ export async function swaggerToTS(options) {
     console.log('[debug] options:', options);
     console.log('filepath:', filepath);
   }
+
   const result = await generateTSFromFile(filepath, {
     debug,
     typesOnly,
+    functionWithExport: false,
     filter: {
       api,
       method,
     },
   });
 
-  prettyPrint(result, { debug, typesOnly });
+  prettyPrint(result, { debug, typesOnly, grouped });
 }
 
 /**
  *
  * @param {Awaited<ReturnType<typeof generateTSFromFile>>} result
- * @param {Pick<IOptions, 'debug' | 'typesOnly'>} opts
+ * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped'>} opts
  */
-export async function prettyPrint(result, { debug, typesOnly }) {
+export async function prettyPrint(result, { debug, typesOnly, grouped }) {
   const { list, total } = result;
   const printSummary = () =>
     debug && console.log(list.length, '/', total, 'API generated successfully');
 
   if (!typesOnly) {
-    await printCode(
-      // @ts-expect-error code must exist when typesOnly is false
-      list.map((item) => item.code),
-      { debug }
-    );
+    if (grouped) {
+      // @ts-expect-error
+      const groups = Object.groupBy(list, (item) => item.group);
+      // console.log('groups:', groups);
+
+      /** @type {string[]} */
+      const codeGroups = [];
+      Object.entries(groups).forEach(([groupLabel, items], idx) => {
+        const serviceName = isVariableName(groupLabel) || '';
+
+        // @ts-expect-error
+        const funcs = items.map((item) =>
+          prefixSpacesToEveryNewLine(item.code)
+        );
+        const prefix = `/** ${groupLabel} */\nexport const ${serviceName}Service${serviceName ? '' : idx === 0 ? '' : idx} = {`;
+        const suffix = '};';
+
+        codeGroups.push(prefix + '\n' + funcs.join(',\n\n') + '\n' + suffix);
+      });
+      console.log(await highlight(codeGroups.join('\n')));
+    } else {
+      await printCode(
+        // @ts-expect-error code must exist when typesOnly is false
+        list.map((item) => item.code),
+        { debug }
+      );
+    }
   }
 
   await printTypes(list, { debug });

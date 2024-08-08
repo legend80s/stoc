@@ -60,6 +60,7 @@ it('with openapi 3.0.1', async () => {
         '}',
       summary: 'listFoo',
       description: '分页查询foo作业',
+      group: 'foo的相关接口',
     },
   ];
 

@@ -52,6 +52,12 @@ function parse(args) {
       type: 'boolean',
       default: false,
     },
+
+    /** print functions into group */
+    grouped: {
+      type: 'boolean',
+      default: false,
+    },
   };
 
   // @ts-expect-error
