@@ -4,8 +4,10 @@ import { codeToANSI } from '@shikijs/cli';
 
 import { generateTSFromFile } from '../lib/generate.mjs';
 import {
+  findMaxPrefixSubstring,
   isVariableName,
   prefixSpacesToEveryNewLine,
+  verbToNoun,
 } from '../lib/lite-lodash.mjs';
 
 /**
@@ -69,25 +71,7 @@ export async function prettyPrint(result, { debug, typesOnly, grouped }) {
 
   if (!typesOnly) {
     if (grouped) {
-      // @ts-expect-error
-      const groups = Object.groupBy(list, (item) => item.group);
-      // console.log('groups:', groups);
-
-      /** @type {string[]} */
-      const codeGroups = [];
-      Object.entries(groups).forEach(([groupLabel, items], idx) => {
-        const serviceName = isVariableName(groupLabel) || '';
-
-        // @ts-expect-error
-        const funcs = items.map((item) =>
-          prefixSpacesToEveryNewLine(item.code)
-        );
-        const prefix = `/** ${groupLabel} */\nexport const ${serviceName}Service${serviceName ? '' : idx === 0 ? '' : idx} = {`;
-        const suffix = '};';
-
-        codeGroups.push(prefix + '\n' + funcs.join(',\n\n') + '\n' + suffix);
-      });
-      console.log(await highlight(codeGroups.join('\n')));
+      await printByGroup(list);
     } else {
       await printCode(
         // @ts-expect-error code must exist when typesOnly is false
@@ -100,6 +84,47 @@ export async function prettyPrint(result, { debug, typesOnly, grouped }) {
   await printTypes(list, { debug });
 
   printSummary();
+}
+
+/**
+ * @param {IGeneratedItem[]} items
+ */
+const toServiceName = (items) => {
+  const paths = items.map((item) => item.path);
+  const path = findMaxPrefixSubstring(paths)
+    .replace(/\/$/, '')
+    .split('/')
+    .at(-1);
+
+  // console.assert(path, 'findMaxPrefixSubstring is empty', paths);
+  if (!path) {
+    return '';
+  }
+
+  return verbToNoun(path[0].toUpperCase() + path.slice(1));
+};
+
+/**
+ * @param {IGeneratedItem[]} list
+ */
+async function printByGroup(list) {
+  // @ts-expect-error
+  const groups = Object.groupBy(list, (item) => item.group);
+  // console.log('groups:', groups);
+
+  /** @type {string[]} */
+  const codeGroups = [];
+  Object.entries(groups).forEach(([groupLabel, items], idx) => {
+    const serviceName = isVariableName(groupLabel) || toServiceName(items);
+
+    // @ts-expect-error
+    const funcs = items.map((item) => prefixSpacesToEveryNewLine(item.code));
+    const prefix = `/** ${groupLabel} */\nexport const ${serviceName}Service${serviceName ? '' : idx === 0 ? '' : idx} = {`;
+    const suffix = '};';
+
+    codeGroups.push(prefix + '\n' + funcs.join(',\n\n') + '\n' + suffix);
+  });
+  console.log(await highlight(codeGroups.join('\n\n')));
 }
 
 /**

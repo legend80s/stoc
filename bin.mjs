@@ -48,6 +48,7 @@ const options = {
   },
 
   grouped: {
+    short: 'g',
     type: 'boolean',
     default: false,
     description: 'Print functions by group',
