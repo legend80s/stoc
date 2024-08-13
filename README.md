@@ -21,7 +21,7 @@
 ## Features
 
 - [x] **Strict TS Types**: Generate client code with `strict TS types` and keep the original `comments` in `tsdoc`
-- [x] **Filterable**: You can generate only what you need use `filter` by `api` path and HTTP `method`
+- [x] **Filterable**: You can generate only what you need using `filter` by `api` path and HTTP `method`
 - [x] **Flexible Usage**: Can be used through CLI or programmatically
 - [ ] **Flexible Format**:
   - [x] You can generate standalone request functions or by group
@@ -61,7 +61,8 @@ npx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
 <details>
   <summary>All flags:</summary>
 
-*only `input` is required.*
+- *only `input` is required.*
+- `grouped` is my favorite flag, it will generate request functions by group. Give it a try!
 
 ```bash
 ┌───────────┬───────────┬───────┬────────────────────────────────────────────────────┬──────────┬─────────┐
