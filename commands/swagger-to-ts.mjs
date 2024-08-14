@@ -17,6 +17,7 @@ import {
  * @property {string} [method] only generate typings match the method, default *
  * @property {boolean} [debug] debug mode
  * @property {boolean} [typesOnly] only output types
+ * @property {boolean} [functionOnly] only output functions
  * @property {boolean} [grouped] should `prettyPrint` output grouped by api, default `false`
  * }
  */
@@ -32,6 +33,7 @@ export async function swaggerToTS(options) {
     method,
     debug = false,
     typesOnly = false,
+    functionOnly = false,
     grouped = false,
   } = options;
   if (debug) {
@@ -56,15 +58,18 @@ export async function swaggerToTS(options) {
     },
   });
 
-  prettyPrint(result, { debug, typesOnly, grouped });
+  prettyPrint(result, { debug, typesOnly, functionOnly, grouped });
 }
 
 /**
  *
  * @param {Awaited<ReturnType<typeof generateTSFromFile>>} result
- * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped'>} opts
+ * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped' | 'functionOnly'>} opts
  */
-export async function prettyPrint(result, { debug, typesOnly, grouped } = {}) {
+export async function prettyPrint(
+  result,
+  { debug, typesOnly, grouped, functionOnly } = {}
+) {
   const { list, total } = result;
   const printSummary = () =>
     debug && console.log(list.length, '/', total, 'API generated successfully');
@@ -81,7 +86,11 @@ export async function prettyPrint(result, { debug, typesOnly, grouped } = {}) {
     }
   }
 
-  await printTypes(list, { debug });
+  if (functionOnly) {
+    // functions has been printed above
+  } else {
+    await printTypes(list, { debug });
+  }
 
   printSummary();
 }

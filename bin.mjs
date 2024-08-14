@@ -20,14 +20,14 @@ const options = {
   api: {
     type: 'string',
     short: 'a',
-    description: 'Generate typings match the API path, default `*`',
+    description: 'Generate typings match the API path',
     default: '*',
     required: '×',
   },
   method: {
     type: 'string',
     short: 'm',
-    description: 'Generate code match the HTTP method, default `*`',
+    description: 'Generate code match the HTTP method',
     default: '*',
     required: '×',
   },
@@ -45,6 +45,15 @@ const options = {
     default: false,
     description: 'Generate only types',
     required: '×',
+    short: 't',
+  },
+
+  functionOnly: {
+    type: 'boolean',
+    default: false,
+    description: 'Generate only functions',
+    required: '×',
+    short: 'f',
   },
 
   grouped: {
