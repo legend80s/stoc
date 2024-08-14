@@ -18,6 +18,8 @@
 >
 > Generate client **request code** with **TypeScript typings** and as many **comments** as possible from Swagger OpenAPI Schema.
 
+**Generated Example:**
+
 ```ts
 /** Comment about this service from schema description */
 export const JobService = {
