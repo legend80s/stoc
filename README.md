@@ -18,13 +18,44 @@
 >
 > Generate client **request code** with **TypeScript typings** and as many **comments** as possible from Swagger OpenAPI Schema.
 
+```ts
+/** Comment about this service from schema description */
+export const JobService = {
+  // Grouped by path or tag, nicely organized. Give it a try by passing the `grouped` flag
+  prefix: '/api/model/v1/evaluate/job',
+
+  /**
+   * Comment about getJobDetail
+   */
+  async getJobDetail(params: IGetJobDetailParams) {
+    return request<Data<IGetJobDetailRespData>>(`${this.prefix}/${params.jobId}`, {
+      method: 'GET',
+      params,
+    });
+  },
+
+  /**
+   * Comment about stopJob
+   */
+  async stopJob(params: IStopJobParams) {
+    return request<Data<IStopJobRespData>>(`${this.prefix}/${params.jobId}`, {
+      method: 'POST',
+      params,
+    });
+  },
+};
+
+// ... types omitted
+```
+
 ## Features
 
 - [x] **Strict TS Types**: Generate client code with `strict TS types` and keep the original `comments` in `tsdoc`
 - [x] **Filterable**: You can generate only what you need using `filter` by `api` path and HTTP `method`
 - [x] **Flexible Usage**: Can be used through CLI or programmatically
 - [ ] **Flexible Format**:
-  - [x] You can generate standalone request functions or by group
+  - [x] You can generate standalone request functions or
+  - [x] Grouped by path or tag. Nicely organized. Give it a try!
   - [ ] You can generate request code with customized template
 - [x] **Pretty Print**: Highlight output with `shikijs`
 - [x] **Battlefield tested**: Support all Swagger OpenAPI versions
@@ -61,9 +92,6 @@ npx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
 <details>
   <summary>All flags:</summary>
 
-- *only `input` is required.*
-- `grouped` is my favorite flag, it will generate request functions by group. Give it a try!
-
 ```bash
 ┌──────────────┬───────────┬───────┬───────────────────────────────────────┬──────────┬─────────┐
 │ (index)      │ type      │ short │ description                           │ required │ default │
@@ -78,6 +106,9 @@ npx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
 │ grouped      │ 'boolean' │ 'g'   │ 'Print functions by group'            │ '×'      │ false   │
 └──────────────┴───────────┴───────┴───────────────────────────────────────┴──────────┴─────────┘
 ```
+
+- *`input` is required only.*
+- `grouped` is my favorite flag, it will generate request functions by group. Give it a try!
 
 </details>
 
