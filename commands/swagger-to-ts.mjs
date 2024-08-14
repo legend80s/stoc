@@ -96,14 +96,10 @@ export async function prettyPrint(
 }
 
 /**
- * @param {IGeneratedItem[]} items
+ * @param {string} longestPrefix
  */
-const toServiceName = (items) => {
-  const paths = items.map((item) => item.path);
-  const path = findMaxPrefixSubstring(paths)
-    .replace(/\/$/, '')
-    .split('/')
-    .at(-1);
+const toServiceName = (longestPrefix) => {
+  const path = longestPrefix.split('/').at(-1);
 
   // console.assert(path, 'findMaxPrefixSubstring is empty', paths);
   if (!path) {
@@ -124,17 +120,36 @@ async function printByGroup(list) {
   /** @type {string[]} */
   const codeGroups = [];
   Object.entries(groups).forEach(([groupLabel, items], idx) => {
-    const serviceName = isVariableName(groupLabel) || toServiceName(items);
+    // @ts-expect-error
+    const paths = items.map((item) => item.path);
+    const longestPrefix = findMaxPrefixSubstring(paths).replace(/\/$/, '');
+
+    const serviceName =
+      isVariableName(groupLabel) || toServiceName(longestPrefix);
+
+    const commonApiPrefix = `  prefix: '${longestPrefix}',\n`;
 
     // @ts-expect-error
     const funcs = items.map((item) =>
-      prefixSpacesToEveryNewLine(item.code.replace(' function ', ' '))
+      prefixSpacesToEveryNewLine(
+        item.code
+          .replace(' function ', ' ')
+          .replace(longestPrefix, '${this.prefix}')
+          // '${this.prefix}/list' => `${this.prefix}/list`
+          .replace(/'(\$.+?)'/, '`$1`')
+      )
     );
+    // async foo() {
+    // return request(`xxx/fdsfdsf`, ...)
+    // }
     const prefix = `/** ${groupLabel} */\nexport const ${serviceName}Service${serviceName ? '' : idx === 0 ? '' : idx} = {`;
     const suffix = '};';
 
-    codeGroups.push(prefix + '\n' + funcs.join(',\n\n') + '\n' + suffix);
+    codeGroups.push(
+      [prefix, commonApiPrefix, funcs.join(',\n\n'), suffix].join('\n')
+    );
   });
+
   console.log(await highlight(codeGroups.join('\n\n')));
 }
 

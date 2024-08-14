@@ -13,7 +13,7 @@ it('with openapi 3.0.1', async () => {
       api: 'baz',
     },
   });
-  deepStrictEqual(actual.total, 1);
+  deepStrictEqual(actual.total, 2);
   deepStrictEqual(actual.list.length, 1);
 
   /** @type {typeof actual.list} */

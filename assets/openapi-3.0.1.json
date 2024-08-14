@@ -40,6 +40,36 @@
           }
         }
       }
+    },
+    "/api/bar/v1/baa/foo/details": {
+      "get": {
+        "tags": ["foo的相关接口"],
+        "summary": "分页查询foo作业",
+        "description": "分页查询foo作业",
+        "operationId": "getFoo",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PageRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "服务Okay，但请求是否成功请看返回体里面的code",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponsePageVOEvaluateFooResp"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
