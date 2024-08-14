@@ -2,6 +2,9 @@ import { deepStrictEqual } from 'node:assert';
 import { it } from 'node:test';
 
 import { generateTSFromFile } from '../index.mjs';
+import whole from '../assets/openapi-3.0.1.json' with { type: 'json' };
+
+const { paths } = whole;
 
 const fp = '../assets/openapi-3.0.1.json';
 
@@ -13,7 +16,7 @@ it('with openapi 3.0.1', async () => {
       api: 'baz',
     },
   });
-  deepStrictEqual(actual.total, 2);
+  deepStrictEqual(actual.total, Object.keys(paths).length);
   deepStrictEqual(actual.list.length, 1);
 
   /** @type {typeof actual.list} */
