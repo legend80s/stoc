@@ -182,6 +182,7 @@ async function printCode(codes, { debug }) {
 async function printTypes(result, { debug }) {
   const unique = new Set();
   const types = [];
+  let genericResp = '';
   for (let i = 0; i < result.length; i++) {
     const {
       method,
@@ -189,7 +190,13 @@ async function printTypes(result, { debug }) {
       requestBodyType,
       requestParametersType,
       responseType,
+      genericResp: genericType,
     } = result[i];
+
+    if (!genericResp) {
+      genericResp = genericType;
+    }
+
     debug &&
       console.log(
         `// #${i + 1}`
@@ -222,7 +229,11 @@ async function printTypes(result, { debug }) {
     //   );
   }
 
-  const content = types.map((type) => type.trim()).join('\n\n');
+  const content = [genericResp]
+    .filter(Boolean)
+    .concat(types)
+    .map((type) => type.trim())
+    .join('\n\n');
 
   console.log(await highlight(content));
 }

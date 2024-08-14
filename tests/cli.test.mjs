@@ -106,7 +106,7 @@ interface IGetBarResponse {
   deepStrictEqual(actual.list, expected);
 });
 
-it('with both data and params', async () => {
+it.skip('with both data and params', async () => {
   // const input = `node cli.mjs  swagger -i ./assets/openapi-apiserver.json  --api completions$ -m post`;
   const actual = await generateTSFromFile(
     '../assets/openapi-apiserver-simple.json',

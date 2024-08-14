@@ -1,20 +1,60 @@
-import { prettyPrint, generateTSFromFile } from './index.mjs';
+// import { prettyPrint, generateTSFromFile } from './index.mjs';
 
-const result = await generateTSFromFile(
-  '../assets/openapi-apiserver-simple.json',
-  {
-    typesOnly: false,
-    interfacePrefix: 'I',
-    filter: {
-      api: '*',
-      method: '*',
-    },
-  }
-);
+// const result = await generateTSFromFile(
+//   '../assets/openapi-apiserver-simple.json',
+//   {
+//     typesOnly: false,
+//     interfacePrefix: 'I',
+//     filter: {
+//       api: '*',
+//       method: '*',
+//     },
+//   }
+// );
 
-// console.log('result:', result);
+// // console.log('result:', result);
 
-await prettyPrint(result, { debug: false, typesOnly: false });
+// await prettyPrint(result, { debug: false, typesOnly: false });
+
+// --------------------------
+// import { compile } from 'json-schema-to-typescript';
+import { genGenericRespType } from './lib/lite-lodash.mjs';
+const properties = {
+  total: {
+    type: 'integer',
+    format: 'int64',
+  },
+  pageSize: {
+    type: 'integer',
+    format: 'int32',
+  },
+  current: {
+    type: 'integer',
+    format: 'int32',
+  },
+};
+
+const schema = {
+  title: '',
+
+  type: 'object',
+  properties: {
+    code: { type: 'integer', format: 'int32', title: '' },
+    data: { type: 'object', properties, title: 'listFooRespData' },
+    errorMsg: { type: 'string', title: '' },
+    success: { type: 'boolean', title: '' },
+  },
+};
+// export interface ExampleSchema {
+//   code?: number;
+//   data?: ListFooRespData;
+//   errorMsg?: string;
+//   success?: boolean;
+// }
+
+const type = genGenericRespType(schema);
+console.log('type:', type);
+// --------------------------
 
 // import { prettyPrint, generateTSFromSchema } from './index.mjs';
 
