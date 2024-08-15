@@ -47,7 +47,14 @@ export const JobService = {
   },
 };
 
-// ... types omitted
+// Generate **Generic Response Type** from parsing your response structure intelligently!
+type Data<T> = {
+  code: number;
+  data: T;
+  message: string;
+}
+
+// ... other types omitted
 ```
 
 ## Features
@@ -58,7 +65,7 @@ export const JobService = {
 - [ ] **Flexible Format**:
   - [x] You can generate standalone request functions or
   - [x] Grouped by path or tag. Nicely organized. Give it a try!
-  - [ ] You can generate request code with customized template
+  - [x] Generate **Generic Response Type** from parsing your response structure intelligently!
 - [x] **Pretty Print**: Highlight output with `shikijs`
 - [x] **Battlefield tested**: Support all Swagger OpenAPI versions
 - [x] **Unit tested**
