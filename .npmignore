@@ -4,5 +4,6 @@ jsconfig.json
 playground.mjs
 bun.lockb
 
-tests/
+*.test.*
 assets/
+coverage/
