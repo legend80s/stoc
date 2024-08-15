@@ -68,7 +68,7 @@ type Data<T> = {
   - [x] 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
 - [x] **Pretty Print**: 🔥 Highlight output with `shikijs`
 - [x] **Battlefield tested**: Support all Swagger OpenAPI versions
-- [x] **Unit tested**
+- [x] **Unit tested**: Coverage (2024-08-15) all files `line: 95.68, branch: 85.16, funcs: 95.08`
 
 ## Get Started
 

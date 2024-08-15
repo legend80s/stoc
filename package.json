@@ -11,9 +11,10 @@
     "pub:patch": "npm version patch",
     "pub:minor": "npm version minor",
     "pub:major": "npm version major",
-    "preversion": "npm test",
+    "preversion": "npm run cov",
     "postversion": "npm publish && git push && git push --tags",
     "bin-test": "node bin.mjs --input ./assets/openapi-3.0.1.json --api foo -g",
+    "cov": "NODE_V8_COVERAGE=coverage node --test --experimental-test-coverage",
     "test": "node --test && npm run bin-test"
   },
   "author": "legend80s",

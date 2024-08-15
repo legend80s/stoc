@@ -14,7 +14,7 @@ import {
  * @typedef {Object} IOptions
  * @property {string} input file path to swagger json
  * @property {string} [api] only generate typings match the api path, default *
- * @property {string} [method] only generate typings match the method, default *
+ * @property {'get' | 'post' | 'delete' | 'head' | 'put' | 'patch' | '*'} [method] only generate typings match the method, default *
  * @property {boolean} [debug] debug mode
  * @property {boolean} [typesOnly] only output types
  * @property {boolean} [functionOnly] only output functions
@@ -159,6 +159,7 @@ async function printByGroup(list) {
  * @returns {Promise<void>}
  */
 async function printCode(codes, { debug }) {
+  // console.log('printCode:');
   for (let index = 0; index < codes.length; index++) {
     const code = codes[index];
     debug &&
