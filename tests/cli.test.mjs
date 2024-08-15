@@ -108,7 +108,7 @@ interface IGetBarResponse {
   deepStrictEqual(actual.list, expected);
 });
 
-it.skip('with both data and params', async () => {
+it('with both data and params', async () => {
   // const input = `node cli.mjs  swagger -i ./assets/openapi-apiserver.json  --api completions$ -m post`;
   const actual = await generateTSFromFile(
     '../assets/openapi-apiserver-simple.json',
@@ -129,6 +129,14 @@ it.skip('with both data and params', async () => {
   /** @type {typeof actual.list[0]} */
   const item1 = {
     description: undefined,
+    genericResp:
+      'type DeleteBarRespData = string;\n' +
+      '\n' +
+      'interface Data<T> {\n' +
+      '  code: number;\n' +
+      '  message?: string | null;\n' +
+      '  data?: T;\n' +
+      '}',
     group: '',
     summary: 'Create Example',
     path: '/api/foo/v1/baz/completions',
@@ -161,6 +169,14 @@ interface BazMessage {
   };
   const item2 = {
     description: undefined,
+    genericResp:
+      'type DeleteBarRespData = string;\n' +
+      '\n' +
+      'interface Data<T> {\n' +
+      '  code: number;\n' +
+      '  message?: string | null;\n' +
+      '  data?: T;\n' +
+      '}',
     group: '',
     summary: 'Create Example For Internal',
     path: '/api/foo/v1/controlled/baz/completions',

@@ -4,3 +4,4 @@ package-lock.json
 pnpm-lock.yaml
 assets/openapi-apiserver.json
 assets/reasoning-service.json
+coverage/
