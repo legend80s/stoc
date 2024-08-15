@@ -62,7 +62,7 @@ type Data<T> = {
 - [x] **Strict TS Types**: Generate client code with `strict TS types` and keep the original `comments` in `tsdoc`
 - [x] **Filterable**: You can generate only what you need using `filter` by `api` path and HTTP `method`
 - [x] **Flexible Usage**: Can be used through CLI or programmatically
-- [ ] **Flexible Format**:
+- [x] **Flexible Format**:
   - [x] 🔥 You can generate standalone request functions or
   - [x] 🔥 Grouped by path or tag. Nicely organized. Give it a try!
   - [x] 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
