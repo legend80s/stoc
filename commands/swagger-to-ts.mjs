@@ -219,7 +219,7 @@ async function printTypes(result, { debug }) {
 
     if (responseType && !unique.has(responseType)) {
       unique.add(responseType);
-      types.push(responseType);
+      types.push(responseType.replace('__Resp__', ''));
     }
 
     // debug &&

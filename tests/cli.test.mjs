@@ -22,6 +22,14 @@ it('with filter', async () => {
     {
       summary: 'Paged Query Bars',
       description: undefined,
+      genericResp:
+        'type DeleteBarRespData = string;\n' +
+        '\n' +
+        'interface Data<T> {\n' +
+        '  code: number;\n' +
+        '  message?: string | null;\n' +
+        '  data?: T;\n' +
+        '}',
       group: '',
       method: 'GET',
       path: '/api/foo/v1/bars',
@@ -67,13 +75,7 @@ interface IPagedQueryBarsParams {
 }`.trimStart(),
       requestBodyType: '',
 
-      responseType: `
-interface IBaseResponsePagedQueryBarsResponse {
-  code: number;
-  message?: string | null;
-  data?: IPagedQueryBarsRespData | null;
-}
-interface IPagedQueryBarsRespData {
+      responseType: `interface IPagedQueryBarsRespData {
   /**
    * Bars总数
    */
