@@ -23,7 +23,7 @@
 ```ts
 /** Comment about this service from schema description */
 export const JobService = {
-  // Grouped by path or tag, nicely organized. Give it a try by passing the `grouped` flag
+  // 🔥 Grouped by path or tag, nicely organized. Give it a try by passing the `grouped` flag
   prefix: '/api/model/v1/evaluate/job',
 
   /**
@@ -47,7 +47,7 @@ export const JobService = {
   },
 };
 
-// Generate **Generic Response Type** from parsing your response structure intelligently!
+// 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
 type Data<T> = {
   code: number;
   data: T;
@@ -63,10 +63,10 @@ type Data<T> = {
 - [x] **Filterable**: You can generate only what you need using `filter` by `api` path and HTTP `method`
 - [x] **Flexible Usage**: Can be used through CLI or programmatically
 - [ ] **Flexible Format**:
-  - [x] You can generate standalone request functions or
-  - [x] Grouped by path or tag. Nicely organized. Give it a try!
-  - [x] Generate **Generic Response Type** from parsing your response structure intelligently!
-- [x] **Pretty Print**: Highlight output with `shikijs`
+  - [x] 🔥 You can generate standalone request functions or
+  - [x] 🔥 Grouped by path or tag. Nicely organized. Give it a try!
+  - [x] 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
+- [x] **Pretty Print**: 🔥 Highlight output with `shikijs`
 - [x] **Battlefield tested**: Support all Swagger OpenAPI versions
 - [x] **Unit tested**
 
