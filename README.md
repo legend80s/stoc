@@ -67,7 +67,7 @@ type Data<T> = {
   - [x] 🔥 Grouped by path or tag. Nicely organized. Give it a try!
   - [x] 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
 - [x] **Pretty Print**: 🔥 Highlight output with `shikijs`
-- [x] **Battlefield tested**: Support all Swagger OpenAPI versions
+- [x] **Battlefield tested**: Support all Swagger OpenAPI versions and Node.js from `v16` to `v22`
 - [x] **Unit tested**: Coverage (2024-08-15) all files `line: 95.68, branch: 85.16, funcs: 95.08`
 
 ## Get Started
