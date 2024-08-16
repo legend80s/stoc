@@ -2,13 +2,15 @@ import { deepStrictEqual } from 'node:assert';
 import { it } from 'node:test';
 
 import { generateTSFromFile } from '../index.mjs';
-import whole from '../assets/openapi-3.0.1.json' with { type: 'json' };
+import { readJSONFile } from '../lib/fs.mjs';
 
-const { paths } = whole;
-
-const fp = '../assets/openapi-3.0.1.json';
+const fp = './assets/openapi-3.0.1.json';
 
 it('with openapi 3.0.1', async () => {
+  const whole = await readJSONFile(fp);
+  // console.log('whole:', whole);
+  const { paths } = whole;
+
   // const input = `node ./cli.mjs swagger -i ./assets/openapi-apiserver.json --api api_keys --method get`;
   // const actual = execSync(input).toString();
   const actual = await generateTSFromFile(fp, {

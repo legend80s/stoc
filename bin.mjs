@@ -2,6 +2,7 @@
 
 import { parseArgs } from 'node:util';
 import { swaggerToTS } from './index.mjs';
+import { readJSONFile } from './lib/fs.mjs';
 
 const options = {
   help: {
@@ -113,10 +114,8 @@ function parse(args) {
 
 // @ts-expect-error
 async function printHelp(options) {
-  const pkg = await import('./package.json', {
-    with: { type: 'json' },
-  });
-  const { name, version } = pkg.default;
+  const pkg = await readJSONFile('./package.json');
+  const { name, version } = pkg;
 
   console.log();
   console.log(name + '@' + version);

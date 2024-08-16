@@ -6,7 +6,7 @@ it('with filter', async () => {
   // const input = `node ./cli.mjs swagger -i ./assets/openapi-apiserver.json --api api_keys --method get`;
   // const actual = execSync(input).toString();
   const actual = await generateTSFromFile(
-    '../assets/openapi-apiserver-simple.json',
+    './assets/openapi-apiserver-simple.json',
     {
       filter: {
         api: 'bars',
@@ -111,7 +111,7 @@ interface IGetBarResponse {
 it('with both data and params', async () => {
   // const input = `node cli.mjs  swagger -i ./assets/openapi-apiserver.json  --api completions$ -m post`;
   const actual = await generateTSFromFile(
-    '../assets/openapi-apiserver-simple.json',
+    './assets/openapi-apiserver-simple.json',
     {
       interfacePrefix: '',
       filter: {

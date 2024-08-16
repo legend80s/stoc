@@ -1,10 +1,9 @@
-import path from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { codeToANSI } from '@shikijs/cli';
 
 import { generateTSFromFile } from '../lib/generate.mjs';
 import {
   findMaxPrefixSubstring,
+  groupBy,
   isVariableName,
   prefixSpacesToEveryNewLine,
   verbToNoun,
@@ -40,9 +39,7 @@ export async function swaggerToTS(options) {
     console.log('[debug] options:', options);
   }
 
-  const filepath = pathToFileURL(
-    path.isAbsolute(input) ? input : path.join(process.cwd(), input)
-  );
+  const filepath = input;
 
   if (debug) {
     console.log('filepath:', filepath);
@@ -113,14 +110,12 @@ const toServiceName = (longestPrefix) => {
  * @param {IGeneratedItem[]} list
  */
 async function printByGroup(list) {
-  // @ts-expect-error
-  const groups = Object.groupBy(list, (item) => item.group);
+  const groups = groupBy(list, (item) => item.group);
   // console.log('groups:', groups);
 
   /** @type {string[]} */
   const codeGroups = [];
   Object.entries(groups).forEach(([groupLabel, items], idx) => {
-    // @ts-expect-error
     const paths = items.map((item) => item.path);
     const longestPrefix = findMaxPrefixSubstring(paths).replace(/\/$/, '');
 
@@ -129,7 +124,6 @@ async function printByGroup(list) {
 
     const commonApiPrefix = `  prefix: '${longestPrefix}',\n`;
 
-    // @ts-expect-error
     const funcs = items.map((item) =>
       prefixSpacesToEveryNewLine(
         item.code
