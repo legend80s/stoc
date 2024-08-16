@@ -15,7 +15,9 @@
     "postversion": "npm publish && git push && git push --tags",
     "bin-test": "node bin.mjs --input ./assets/openapi-3.0.1.json --api foo -g",
     "cov": "NODE_V8_COVERAGE=coverage node --test --experimental-test-coverage",
-    "test": "node --test && npm run bin-test"
+    "test": "node --test && npm run bin-test",
+    "test16": "nvm use 16 && node --test && npm run bin-test",
+    "test22": "nvm use 22 && node --test && npm run bin-test"
   },
   "author": "legend80s",
   "license": "ISC",
