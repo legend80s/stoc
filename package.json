@@ -1,6 +1,6 @@
 {
   "name": "swaggered",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Generate client request code with TypeScript typings from Swagger OpenAPI JSON Schema.",
   "main": "index.mjs",
   "bin": {
