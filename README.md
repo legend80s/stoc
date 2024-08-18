@@ -72,17 +72,17 @@ type Data<T> = {
 
 ## Get Started
 
-### 1. Use CLI `RECOMMENDED`
+### 1. Use CLI *`RECOMMENDED`*
 
 Generate request code with `api` contains `foo` only:
 
-Output to stdout
+#### Output to stdout
 
 ```bash
 npx swaggered --input ./assets/openapi.json --api foo
 ```
 
-Copy to clipboard
+#### Copy to clipboard
 
 ```bash
 # macOS
@@ -92,7 +92,7 @@ npx swaggered --input ./assets/openapi.json --api foo | pbcopy
 npx swaggered --input ./assets/openapi.json --api foo | clip
 ```
 
-Save to file
+#### Save to file
 
 ```bash
 npx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
@@ -127,7 +127,7 @@ npx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
   <summary>A working and beautiful demo but a little bit long</summary>
 
 ```ts
-import { prettyPrint, generateTSFromSchema } from './index.mjs';
+import { prettyPrint, generateTSFromSchema } from 'swaggered';
 
 const result = await generateTSFromSchema({
   openapi: '3.0.1',
@@ -271,6 +271,8 @@ await prettyPrint(result);
 ### 3. Use programmatically. Generate from file and `prettyPrint` automatically
 
 ```ts
+import { swaggerToTS } from 'swaggered';
+
 await swaggerToTS({
   input: swaggerJsonFilepath,
   api: 'baz',
@@ -281,6 +283,8 @@ await swaggerToTS({
 ### 4. Use Programmatically. Generate from file and `prettyPrint` result or do whatever you want
 
 ```typescript
+import { generateTSFromFile, prettyPrint } from 'swaggered';
+
 const result = await generateTSFromFile(filepath, {
   typesOnly: false,
   filter: {
@@ -397,13 +401,3 @@ interface GetBarRespData {
 ```
 
 </details>
-
-## API
-
-### generateTSFromFile
-
-Generate TypeScript definitions and client JS request code from a given Swagger OpenAPI JSON file.
-
-### generateTSFromSchema
-
-Generate from Swagger OpenAPI JSON Schema.
