@@ -26,7 +26,7 @@ it('with openapi 3.0.1', async () => {
     {
       code:
         '/**\n' +
-        ' * 分页查询foo作业\n' +
+        ' * 分页查询foo作业1\n' +
         ' */\n' +
         `export async function listFoo(params: IListFooParams) {\n` +
         "  return request<Data<IListFooRespData>>('/api/bar/v1/baz/foo/list', {\n" +
@@ -64,7 +64,7 @@ it('with openapi 3.0.1', async () => {
         '  }[];\n' +
         '}',
       summary: 'listFoo',
-      description: '分页查询foo作业',
+      description: '分页查询foo作业1',
       genericResp:
         'interface Data<T> {\n' +
         '  code?: number;\n' +

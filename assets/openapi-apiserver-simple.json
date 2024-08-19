@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": { "title": "FastAPI", "version": "0.1.0" },
   "paths": {
-    "/api/foo/v1/bar/{bar_id}": {
+    "/api/foo/v1/bar/{bar_id}/baz/{baz_id}": {
       "delete": {
         "summary": "Delete Bar",
         "operationId": "delete_bar_api_foo_v1_bar__bar_id__delete",
@@ -12,6 +12,12 @@
             "in": "path",
             "required": true,
             "schema": { "type": "integer", "title": "Bar Id" }
+          },
+          {
+            "name": "baz_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Baz Id" }
           },
           {
             "name": "x-jwt-payload",

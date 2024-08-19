@@ -10,7 +10,7 @@ it('in body', () => {
   const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list`;
   const actual = execSync(input).toString('utf8');
   const expected = `/**
- * 分页查询foo作业
+ * 分页查询foo作业3
  */
 async function listFoo(data: IListFooReqData) {
   return request<Data<IListFooRespData>>('/api/account/v1/fox/list', {
@@ -49,6 +49,38 @@ interface IListFooRespData {
     bars?: string[];
   }[];
 }
+
+`;
+
+  deepStrictEqual(actual, expected);
+});
+
+it('should remove params in passed args because all the params has been consumed by the url (in path)', () => {
+  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete`;
+  const actual = execSync(input).toString('utf8');
+  const expected = `/**
+ * Delete Bar
+ */
+async function deleteBar(params: IDeleteBarParamsInPath) {
+  return request<Data<IDeleteBarRespData>>(\`/api/foo/v1/bar/\${params.bar_id}/baz/\${params.baz_id}\`, {
+    method: 'DELETE'
+  });
+}
+
+type DeleteBarRespData = string;
+
+interface Data<T> {
+  code: number;
+  message?: string | null;
+  data?: T;
+}
+
+interface IDeleteBarParamsInPath {
+  bar_id: number;
+  baz_id: number;
+}
+
+type IDeleteBarRespData = string;
 
 `;
 
