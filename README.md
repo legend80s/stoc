@@ -32,7 +32,16 @@ export const JobService = {
   async getJobDetail(params: IGetJobDetailParams) {
     return request<Data<IGetJobDetailRespData>>(`${this.prefix}/${params.jobId}`, {
       method: 'GET',
-      params,
+    });
+  },
+
+  /**
+   * Comment about createJob
+   */
+  async createJob(data: ICreateJobReqData) {
+    return request<Data<ICreateJobRespData>>(this.prefix, {
+      method: 'POST',
+      data: ICreateJobReqData
     });
   },
 
@@ -42,7 +51,6 @@ export const JobService = {
   async stopJob(params: IStopJobParams) {
     return request<Data<IStopJobRespData>>(`${this.prefix}/${params.jobId}`, {
       method: 'POST',
-      params,
     });
   },
 };
