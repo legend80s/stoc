@@ -14,8 +14,8 @@
     "/api/bar/v1/baz/foo/list": {
       "get": {
         "tags": ["foo的相关接口"],
-        "summary": "分页查询foo作业",
-        "description": "分页查询foo作业",
+        "summary": "分页查询foo作业1",
+        "description": "分页查询foo作业1",
         "operationId": "listFoo",
         "parameters": [
           {
@@ -44,8 +44,8 @@
     "/api/bar/v1/baa/foo/details": {
       "get": {
         "tags": ["foo的相关接口"],
-        "summary": "分页查询foo作业",
-        "description": "分页查询foo作业",
+        "summary": "分页查询foo作业2",
+        "description": "分页查询foo作业2",
         "operationId": "getFoo",
         "parameters": [
           {
@@ -71,11 +71,42 @@
         }
       }
     },
+    "/api/account/v1/fox/list": {
+      "post": {
+        "tags": ["foo的相关接口"],
+        "summary": "分页查询foo作业3",
+        "description": "分页查询foo作业3",
+        "operationId": "listFoo",
+        "parameters": [
+          {
+            "name": "listReq",
+            "description": "listReq",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PageRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "服务Okay，但请求是否成功请看返回体里面的code",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponsePageVOEvaluateFooResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/bar/v1/bab/foo/list/{jobId}": {
       "get": {
         "tags": ["foo的相关接口"],
-        "summary": "分页查询foo作业",
-        "description": "分页查询foo作业",
+        "summary": "分页查询foo作业4",
+        "description": "分页查询foo作业4",
         "operationId": "listFoo",
         "parameters": [
           {

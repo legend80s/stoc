@@ -141,10 +141,11 @@ it('with both data and params', async () => {
     summary: 'Create Example',
     path: '/api/foo/v1/baz/completions',
     method: 'POST',
-    requestParametersType: `
-interface CreateExampleParams {
-  "api-key"?: string;
-}`.trimStart(),
+    requestParametersType: ``,
+    //     requestHeaderType: `
+    // interface CreateExampleParams {
+    //   "api-key"?: string;
+    // }`.trimStart(),
     requestBodyType: `
 interface BazCompletionRequest {
   model: string;
@@ -159,10 +160,9 @@ interface BazMessage {
       '/**\n' +
       ' * Create Example\n' +
       ' */\n' +
-      `export async function createExample(params: CreateExampleParams, data: BazCompletionRequest) {
+      `export async function createExample(data: BazCompletionRequest) {
   return request('/api/foo/v1/baz/completions', {
     method: 'POST',
-    params,
     data,
   });
 }`.trimStart(),
