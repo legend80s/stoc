@@ -1,0 +1,72 @@
+{
+  "schemes": [],
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "title": "",
+    "contact": {},
+    "version": ""
+  },
+  "host": "",
+  "basePath": "/api/lm/rs",
+  "paths": {
+    "/createAcc": {
+      "post": {
+        "description": "目前只支持邮箱登录",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
+        "summary": "创建Foo加速",
+        "parameters": [
+          {
+            "description": "params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/git_xx-group_yy-branch_zz-foo_bar-service-manager_api_v1.CreateAccReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/git_xx-group_yy-branch_zz-foo_bar-service-manager_api_v1.Response"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "git_xx-group_yy-branch_zz-foo_bar-service-manager_api_v1.CreateAccReq": {
+      "type": "object",
+      "properties": {
+        "modelId": {
+          "type": "integer"
+        },
+        "modelVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "git_xx-group_yy-branch_zz-foo_bar-service-manager_api_v1.Response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "data": {},
+        "errorArgs": {},
+        "errorMsg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
