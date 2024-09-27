@@ -122,13 +122,18 @@ async function printByGroup(list) {
     const serviceName =
       isVariableName(groupLabel) || toServiceName(longestPrefix);
 
-    const commonApiPrefix = `  prefix: '${longestPrefix}',\n`;
+    const commonApiPrefix = longestPrefix
+      ? `  prefix: '${longestPrefix}',\n`
+      : '';
 
     const funcs = items.map((item) =>
       prefixSpacesToEveryNewLine(
         item.code
           .replace(' function ', ' ')
-          .replace(longestPrefix, '${this.prefix}')
+          .replace(
+            longestPrefix ? longestPrefix : '__MAGIC_WONT_REPLACE__',
+            '${this.prefix}'
+          )
           // '${this.prefix}/list' => `${this.prefix}/list`
           .replace(/'(\$.+?)'/, '`$1`')
       )
@@ -140,7 +145,10 @@ async function printByGroup(list) {
     const suffix = '};';
 
     codeGroups.push(
-      [prefix, commonApiPrefix, funcs.join(',\n\n'), suffix].join('\n')
+      [prefix, commonApiPrefix, funcs.join(',\n\n'), suffix]
+        // commonApiPrefix maybe be empty should filter it
+        .filter(Boolean)
+        .join('\n')
     );
   });
 
