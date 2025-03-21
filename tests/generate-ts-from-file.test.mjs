@@ -126,10 +126,16 @@ it('with both data and params', async () => {
 
   // console.log('input:', input, 'end');
   // console.log('actual:', actual, 'end');
+  const genericResp =
+    'interface Data<T> {\n' +
+    '  code: number;\n' +
+    '  message?: string | null;\n' +
+    '  data?: T;\n' +
+    '}';
   /** @type {typeof actual.list[0]} */
   const item1 = {
     description: 'Create Example',
-    genericResp: '',
+    genericResp,
     group: '',
     summary: 'Create Example',
     path: '/api/foo/v1/baz/completions',
@@ -162,7 +168,7 @@ interface BazMessage {
   };
   const item2 = {
     description: 'Create Example For Internal',
-    genericResp: '',
+    genericResp,
     group: '',
     summary: 'Create Example For Internal',
     path: '/api/foo/v1/controlled/baz/completions',
