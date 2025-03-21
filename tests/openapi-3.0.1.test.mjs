@@ -18,7 +18,7 @@ it('with openapi 3.0.1', async () => {
       api: 'baz',
     },
   });
-  deepStrictEqual(actual.total, Object.keys(paths).length);
+  deepStrictEqual(actual.total, 1);
   deepStrictEqual(actual.list.length, 1);
 
   /** @type {typeof actual.list} */

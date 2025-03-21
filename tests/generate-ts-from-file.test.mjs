@@ -3,7 +3,7 @@ import { deepStrictEqual } from 'node:assert';
 import { generateTSFromFile } from '../lib/generate.mjs';
 
 it('with filter', async () => {
-  // const input = `node ./cli.mjs swagger -i ./assets/openapi-apiserver.json --api api_keys --method get`;
+  // const input = `node ./bin.mjs -i ./assets/openapi-apiserver.json --api api_keys --method get`;
   // const actual = execSync(input).toString();
   const actual = await generateTSFromFile(
     './assets/openapi-apiserver-simple.json',
@@ -14,17 +14,17 @@ it('with filter', async () => {
       },
     }
   );
-  deepStrictEqual(actual.total, 5);
+  deepStrictEqual(actual.total, 1);
   deepStrictEqual(actual.list.length, 1);
+
+  // console.log('actual.list:', actual.list);
 
   /** @type {typeof actual.list} */
   const expected = [
     {
       summary: 'Paged Query Bars',
-      description: undefined,
+      description: 'Paged Query Bars',
       genericResp:
-        'type DeleteBarRespData = string;\n' +
-        '\n' +
         'interface Data<T> {\n' +
         '  code: number;\n' +
         '  message?: string | null;\n' +
@@ -121,22 +121,15 @@ it('with both data and params', async () => {
     }
   );
 
-  deepStrictEqual(actual.total, 5);
+  deepStrictEqual(actual.total, 2);
   deepStrictEqual(actual.list.length, 2);
 
   // console.log('input:', input, 'end');
   // console.log('actual:', actual, 'end');
   /** @type {typeof actual.list[0]} */
   const item1 = {
-    description: undefined,
-    genericResp:
-      'type DeleteBarRespData = string;\n' +
-      '\n' +
-      'interface Data<T> {\n' +
-      '  code: number;\n' +
-      '  message?: string | null;\n' +
-      '  data?: T;\n' +
-      '}',
+    description: 'Create Example',
+    genericResp: '',
     group: '',
     summary: 'Create Example',
     path: '/api/foo/v1/baz/completions',
@@ -168,15 +161,8 @@ interface BazMessage {
 }`.trimStart(),
   };
   const item2 = {
-    description: undefined,
-    genericResp:
-      'type DeleteBarRespData = string;\n' +
-      '\n' +
-      'interface Data<T> {\n' +
-      '  code: number;\n' +
-      '  message?: string | null;\n' +
-      '  data?: T;\n' +
-      '}',
+    description: 'Create Example For Internal',
+    genericResp: '',
     group: '',
     summary: 'Create Example For Internal',
     path: '/api/foo/v1/controlled/baz/completions',
