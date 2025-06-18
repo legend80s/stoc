@@ -64,10 +64,17 @@ const options = {
     description: 'Print functions by group',
     required: '×',
   },
+
+  'use-interface': {
+    type: 'boolean',
+    default: false,
+    description: 'Generate interface instead of type',
+    required: '×',
+  },
 };
 
 /**
- * @param {{ parsed: { help:boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
+ * @param {{ parsed: { help:boolean; 'use-interface': boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
  */
 async function main({ parsed, options }) {
   if (parsed.help) {
@@ -76,12 +83,15 @@ async function main({ parsed, options }) {
     return;
   }
 
-  const { help, ...opts } = parsed;
+  const { help: _, 'use-interface': useInterface, ...opts } = parsed;
 
   opts.debug && console.time('swaggerToTS');
   // console.log('opts:', opts);
 
-  await swaggerToTS(opts);
+  await swaggerToTS({
+    ...opts,
+    useInterface,
+  });
 
   opts.debug && console.timeEnd('swaggerToTS');
 }

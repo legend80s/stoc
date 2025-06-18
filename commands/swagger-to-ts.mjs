@@ -4,6 +4,7 @@ import { generateTSFromFile } from '../lib/generate.mjs';
 import {
   findMaxPrefixSubstring,
   groupBy,
+  interfaceToType,
   isVariableName,
   prefixSpacesToEveryNewLine,
   verbToNoun,
@@ -18,6 +19,7 @@ import {
  * @property {boolean} [typesOnly] only output types
  * @property {boolean} [functionOnly] only output functions
  * @property {boolean} [grouped] should `prettyPrint` output grouped by api, default `false`
+ * @property {boolean} [useInterface] Output `interface` instead of `type`, default `false`
  * }
  */
 
@@ -34,6 +36,7 @@ export async function swaggerToTS(options) {
     typesOnly = false,
     functionOnly = false,
     grouped = false,
+    useInterface = false,
   } = options;
   if (debug) {
     console.log('[debug] options:', options);
@@ -55,17 +58,17 @@ export async function swaggerToTS(options) {
     },
   });
 
-  prettyPrint(result, { debug, typesOnly, functionOnly, grouped });
+  prettyPrint(result, { debug, typesOnly, functionOnly, grouped, useInterface });
 }
 
 /**
  *
  * @param {Awaited<ReturnType<typeof generateTSFromFile>>} result
- * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped' | 'functionOnly'>} opts
+ * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped' | 'functionOnly' | 'useInterface'>} opts
  */
 export async function prettyPrint(
   result,
-  { debug, typesOnly, grouped, functionOnly } = {}
+  { debug, typesOnly, grouped, functionOnly, useInterface } = {}
 ) {
   const { list, total } = result;
   const printSummary = () =>
@@ -86,7 +89,7 @@ export async function prettyPrint(
   if (functionOnly) {
     // functions has been printed above
   } else {
-    await printTypes(list, { debug });
+    await printTypes(list, { debug, useInterface });
   }
 
   printSummary();
@@ -180,12 +183,13 @@ async function printCode(codes, { debug }) {
 /**
  *
  * @param {import('../lib/generate.mjs').IGeneratedItem[]} result
- * @param {Pick<IOptions, 'debug'>} opts
+ * @param {Pick<IOptions, 'debug' | 'useInterface'>} opts
  */
-async function printTypes(result, { debug }) {
+async function printTypes(result, { debug, useInterface }) {
   const unique = new Set();
   const types = [];
   let genericResp = '';
+
   for (let i = 0; i < result.length; i++) {
     const {
       method,
@@ -232,11 +236,15 @@ async function printTypes(result, { debug }) {
     //   );
   }
 
-  const content = [genericResp]
+  let content = [genericResp]
     .filter(Boolean)
     .concat(types)
     .map((type) => type.trim())
     .join('\n\n');
+
+  if (!useInterface) {
+    content = interfaceToType(content);
+  }
 
   console.log(await highlight(content));
 }

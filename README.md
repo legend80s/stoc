@@ -87,23 +87,23 @@ Generate request code with `api` contains `foo` only:
 #### Output to stdout
 
 ```bash
-npx swaggered --input ./assets/openapi.json --api foo
+pnpx swaggered --input ./assets/openapi.json --api foo
 ```
 
 #### Copy to clipboard
 
 ```bash
 # macOS
-npx swaggered --input ./assets/openapi.json --api foo | pbcopy
+pnpx swaggered --input ./assets/openapi.json --api foo | pbcopy
 
 # Windows
-npx swaggered --input ./assets/openapi.json --api foo | clip
+pnpx swaggered --input ./assets/openapi.json --api foo | clip
 ```
 
 #### Save to file
 
 ```bash
-npx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
+pnpx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
 ```
 
 <details>
