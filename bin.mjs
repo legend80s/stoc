@@ -41,7 +41,7 @@ const options = {
     short: 'd',
   },
 
-  typesOnly: {
+  'types-only': {
     type: 'boolean',
     default: false,
     description: 'Generate only types',
@@ -49,7 +49,7 @@ const options = {
     short: 't',
   },
 
-  functionOnly: {
+  'function-only': {
     type: 'boolean',
     default: false,
     description: 'Generate only functions',
@@ -74,7 +74,7 @@ const options = {
 };
 
 /**
- * @param {{ parsed: { help:boolean; 'use-interface': boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
+ * @param {{ parsed: { help: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
  */
 async function main({ parsed, options }) {
   if (parsed.help) {
@@ -83,7 +83,13 @@ async function main({ parsed, options }) {
     return;
   }
 
-  const { help: _, 'use-interface': useInterface, ...opts } = parsed;
+  const {
+    help: _,
+    'use-interface': useInterface,
+    'types-only': typesOnly,
+    'function-only': functionOnly,
+    ...opts
+  } = parsed;
 
   opts.debug && console.time('swaggerToTS');
   // console.log('opts:', opts);
@@ -91,6 +97,8 @@ async function main({ parsed, options }) {
   await swaggerToTS({
     ...opts,
     useInterface,
+    typesOnly,
+    functionOnly,
   });
 
   opts.debug && console.timeEnd('swaggerToTS');

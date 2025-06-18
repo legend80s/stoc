@@ -118,8 +118,8 @@ pnpx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
 │ api           │ 'string'  │ 'a'   │ 'Generate typings match the API path' │ '×'      │ '*'     │
 │ method        │ 'string'  │ 'm'   │ 'Generate code match the HTTP method' │ '×'      │ '*'     │
 │ debug         │ 'boolean' │ 'd'   │ 'Print debug info'                    │ '×'      │ false   │
-│ typesOnly     │ 'boolean' │ 't'   │ 'Generate only types'                 │ '×'      │ false   │
-│ functionOnly  │ 'boolean' │ 'f'   │ 'Generate only functions'             │ '×'      │ false   │
+│ types-only    │ 'boolean' │ 't'   │ 'Generate only types'                 │ '×'      │ false   │
+│ function-only │ 'boolean' │ 'f'   │ 'Generate only functions'             │ '×'      │ false   │
 │ grouped       │ 'boolean' │ 'g'   │ 'Print functions by group'            │ '×'      │ false   │
 │ use-interface │ 'boolean' │       │ 'Generate interface instead of type'  │ '×'      │ false   │
 └───────────────┴───────────┴───────┴───────────────────────────────────────┴──────────┴─────────┘
