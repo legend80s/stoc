@@ -1,14 +1,14 @@
-import { it, beforeEach } from 'node:test';
-import { deepStrictEqual } from 'node:assert';
-import { execSync } from 'node:child_process';
+import { it, beforeEach } from 'node:test'
+import { deepStrictEqual } from 'node:assert'
+import { execSync } from 'node:child_process'
 
 beforeEach(() => {
-  process.env.FORCE_COLOR = '0';
-});
+  process.env.FORCE_COLOR = '0'
+})
 
 it('Use `interface`: in body', () => {
-  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --use-interface`;
-  const actual = execSync(input).toString('utf8');
+  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --use-interface --no-request`
+  const actual = execSync(input).toString('utf8')
   const expected = `/**
  * 分页查询foo作业3
  */
@@ -50,14 +50,14 @@ interface IListFooRespData {
   }[];
 }
 
-`;
+`
 
-  deepStrictEqual(actual, expected);
-});
+  deepStrictEqual(actual, expected)
+})
 
 it('Use `interface`: should remove params in passed args because all the params has been consumed by the url (in path)', () => {
-  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --use-interface`;
-  const actual = execSync(input).toString('utf8');
+  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --use-interface --no-request`
+  const actual = execSync(input).toString('utf8')
   const expected = `/**
  * Delete Bar
  */
@@ -82,14 +82,14 @@ interface IDeleteBarParamsInPath {
 
 type IDeleteBarRespData = string;
 
-`;
+`
 
-  deepStrictEqual(actual, expected);
-});
+  deepStrictEqual(actual, expected)
+})
 
 it('Use `type` by default: in body', () => {
-  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list`;
-  const actual = execSync(input).toString('utf8');
+  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --no-request`
+  const actual = execSync(input).toString('utf8')
   const expected = `/**
  * 分页查询foo作业3
  */
@@ -131,14 +131,14 @@ type IListFooRespData = {
   }[];
 }
 
-`;
+`
 
-  deepStrictEqual(actual, expected);
-});
+  deepStrictEqual(actual, expected)
+})
 
 it('Use `type` by default: should remove params in passed args because all the params has been consumed by the url (in path)', () => {
-  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete`;
-  const actual = execSync(input).toString('utf8');
+  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --no-request`
+  const actual = execSync(input).toString('utf8')
   const expected = `/**
  * Delete Bar
  */
@@ -163,7 +163,7 @@ type IDeleteBarParamsInPath = {
 
 type IDeleteBarRespData = string;
 
-`;
+`
 
-  deepStrictEqual(actual, expected);
-});
+  deepStrictEqual(actual, expected)
+})
