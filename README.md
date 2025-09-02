@@ -414,3 +414,4 @@ interface GetBarRespData {
 ## Develop
 
 - Testing: use node builtin test and coverage `node --test --experimental-test-coverage`
+- Linting and Formatting: powered by biome
