@@ -1,6 +1,6 @@
-import { codeToANSI } from '@shikijs/cli';
+import { codeToANSI } from '@shikijs/cli'
 
-import { generateTSFromFile } from '../lib/generate.mjs';
+import { generateTSFromFile } from '../lib/generate.mjs'
 import {
   findMaxPrefixSubstring,
   groupBy,
@@ -8,7 +8,7 @@ import {
   isVariableName,
   prefixSpacesToEveryNewLine,
   verbToNoun,
-} from '../lib/lite-lodash.mjs';
+} from '../lib/lite-lodash.mjs'
 
 /**
  * @typedef {Object} IOptions
@@ -20,6 +20,7 @@ import {
  * @property {boolean} [functionOnly] only output functions
  * @property {boolean} [grouped] should `prettyPrint` output grouped by api, default `false`
  * @property {boolean} [useInterface] Output `interface` instead of `type`, default `false`
+ * @property {boolean} [request] should generate request.ts, default `true`
  * }
  */
 
@@ -37,28 +38,36 @@ export async function swaggerToTS(options) {
     functionOnly = false,
     grouped = false,
     useInterface = false,
-  } = options;
+    request = true,
+  } = options
   if (debug) {
-    console.log('[debug] options:', options);
+    console.log('[debug] options:', options)
   }
 
-  const filepath = input;
+  const filepath = input
 
   if (debug) {
-    console.log('filepath:', filepath);
+    console.log('filepath:', filepath)
   }
 
   const result = await generateTSFromFile(filepath, {
     debug,
     typesOnly,
     functionWithExport: false,
+    request,
     filter: {
       api,
       method,
     },
-  });
+  })
 
-  prettyPrint(result, { debug, typesOnly, functionOnly, grouped, useInterface });
+  prettyPrint(result, {
+    debug,
+    typesOnly,
+    functionOnly,
+    grouped,
+    useInterface,
+  })
 }
 
 /**
@@ -70,64 +79,66 @@ export async function prettyPrint(
   result,
   { debug, typesOnly, grouped, functionOnly, useInterface } = {}
 ) {
-  const { list, total } = result;
+  const { list, total, codeBefore } = result
   const printSummary = () =>
-    debug && console.log(list.length, '/', total, 'API generated successfully');
+    debug && console.log(list.length, '/', total, 'API generated successfully')
 
   if (!typesOnly) {
+    codeBefore && (await printCode([codeBefore], { debug }))
+
     if (grouped) {
-      await printByGroup(list);
+      await printByGroup(list)
     } else {
       await printCode(
         // @ts-expect-error code must exist when typesOnly is false
         list.map((item) => item.code),
         { debug }
-      );
+      )
     }
   }
 
   if (functionOnly) {
     // functions has been printed above
   } else {
-    await printTypes(list, { debug, useInterface });
+    await printTypes(list, { debug, useInterface })
   }
 
-  printSummary();
+  printSummary()
 }
 
 /**
  * @param {string} longestPrefix
  */
 const toServiceName = (longestPrefix) => {
-  const path = longestPrefix.split('/').at(-1);
+  const path = longestPrefix.split('/').at(-1)
 
   // console.assert(path, 'findMaxPrefixSubstring is empty', paths);
   if (!path) {
-    return '';
+    return ''
   }
 
-  return verbToNoun(path[0].toUpperCase() + path.slice(1));
-};
+  return verbToNoun(path[0].toUpperCase() + path.slice(1))
+}
 
 /**
  * @param {IGeneratedItem[]} list
  */
 async function printByGroup(list) {
-  const groups = groupBy(list, (item) => item.group);
+  const groups = groupBy(list, (item) => item.group)
   // console.log('groups:', groups);
 
   /** @type {string[]} */
-  const codeGroups = [];
+  const codeGroups = []
   Object.entries(groups).forEach(([groupLabel, items], idx) => {
-    const paths = items.map((item) => item.path);
-    const longestPrefix = findMaxPrefixSubstring(paths).replace(/\/$/, '');
+    const paths = items.map((item) => item.path)
+    const longestPrefix = findMaxPrefixSubstring(paths).replace(/\/$/, '')
 
     const serviceName =
-      isVariableName(groupLabel) || toServiceName(longestPrefix);
+      isVariableName(groupLabel) || toServiceName(longestPrefix)
 
     const commonApiPrefix = longestPrefix
       ? `  prefix: '${longestPrefix}',\n`
-      : '';
+      : ''
 
     const funcs = items.map((item) =>
       prefixSpacesToEveryNewLine(
@@ -140,39 +151,39 @@ async function printByGroup(list) {
           // '${this.prefix}/list' => `${this.prefix}/list`
           .replace(/'(\$.+?)'/, '`$1`')
       )
-    );
+    )
     // async foo() {
     // return request(`xxx/fdsfdsf`, ...)
     // }
-    const prefix = `/** ${groupLabel} */\nexport const ${serviceName}Service${serviceName ? '' : idx === 0 ? '' : idx} = {`;
-    const suffix = '};';
+    const prefix = `/** ${groupLabel} */\nexport const ${serviceName}Service${serviceName ? '' : idx === 0 ? '' : idx} = {`
+    const suffix = '};'
 
     codeGroups.push(
       [prefix, commonApiPrefix, funcs.join(',\n\n'), suffix]
         // commonApiPrefix maybe be empty should filter it
         .filter(Boolean)
         .join('\n')
-    );
-  });
+    )
+  })
 
-  console.log(await highlight(codeGroups.join('\n\n')));
+  console.log(await highlight(codeGroups.join('\n\n')))
 }
 
 /**
  * @param {string[]} codes
- * @param {{ debug: boolean }} options
+ * @param {{ debug?: boolean }} options
  * @returns {Promise<void>}
  */
 async function printCode(codes, { debug }) {
   // console.log('printCode:');
   for (let index = 0; index < codes.length; index++) {
-    const code = codes[index];
+    const code = codes[index]
     debug &&
       console.log(
         `// #${index + 1}`
         // `BEGIN --------------------------------------------`
-      );
-    console.log(await highlight(code));
+      )
+    console.log(await highlight(code))
     // debug &&
     //   console.log(
     //     `#${index + 1} END --------------------------------------------`
@@ -186,9 +197,9 @@ async function printCode(codes, { debug }) {
  * @param {Pick<IOptions, 'debug' | 'useInterface'>} opts
  */
 async function printTypes(result, { debug, useInterface }) {
-  const unique = new Set();
-  const types = [];
-  let genericResp = '';
+  const unique = new Set()
+  const types = []
+  let genericResp = ''
 
   for (let i = 0; i < result.length; i++) {
     const {
@@ -198,35 +209,35 @@ async function printTypes(result, { debug, useInterface }) {
       requestParametersType,
       responseType,
       genericResp: genericType,
-    } = result[i];
+    } = result[i]
 
     if (!genericResp) {
-      genericResp = genericType;
+      genericResp = genericType
     }
 
     debug &&
       console.log(
         `// #${i + 1}`
         // 'BEGIN --------------------------------------------'
-      );
+      )
     if (debug) {
-      console.log(method, path);
-      console.log();
+      console.log(method, path)
+      console.log()
     }
 
     if (requestParametersType && !unique.has(requestParametersType)) {
-      unique.add(requestParametersType);
-      types.push(requestParametersType);
+      unique.add(requestParametersType)
+      types.push(requestParametersType)
     }
 
     if (requestBodyType && !unique.has(requestBodyType)) {
-      unique.add(requestBodyType);
-      types.push(requestBodyType);
+      unique.add(requestBodyType)
+      types.push(requestBodyType)
     }
 
     if (responseType && !unique.has(responseType)) {
-      unique.add(responseType);
-      types.push(responseType.replace('__Resp__', ''));
+      unique.add(responseType)
+      types.push(responseType.replace('__Resp__', ''))
     }
 
     // debug &&
@@ -240,13 +251,13 @@ async function printTypes(result, { debug, useInterface }) {
     .filter(Boolean)
     .concat(types)
     .map((type) => type.trim())
-    .join('\n\n');
+    .join('\n\n')
 
   if (!useInterface) {
-    content = interfaceToType(content);
+    content = interfaceToType(content)
   }
 
-  console.log(await highlight(content));
+  console.log(await highlight(content))
 }
 
 /**
@@ -255,7 +266,7 @@ async function printTypes(result, { debug, useInterface }) {
  * @returns {Promise<string>}
  */
 async function highlight(content) {
-  return await codeToANSI(content, 'typescript', 'dark-plus');
+  return await codeToANSI(content, 'typescript', 'dark-plus')
 }
 
 /**

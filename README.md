@@ -110,19 +110,20 @@ pnpx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
   <summary>All flags:</summary>
 
 ```bash
-┌───────────────┬───────────┬───────┬───────────────────────────────────────┬──────────┬─────────┐
-│ (index)       │ type      │ short │ description                           │ required │ default │
-├───────────────┼───────────┼───────┼───────────────────────────────────────┼──────────┼─────────┤
-│ help          │ 'boolean' │ 'h'   │ 'Show this help message'              │ '×'      │ false   │
-│ input         │ 'string'  │ 'i'   │ 'Input file path of swagger json'     │ '√'      │         │
-│ api           │ 'string'  │ 'a'   │ 'Generate typings match the API path' │ '×'      │ '*'     │
-│ method        │ 'string'  │ 'm'   │ 'Generate code match the HTTP method' │ '×'      │ '*'     │
-│ debug         │ 'boolean' │ 'd'   │ 'Print debug info'                    │ '×'      │ false   │
-│ types-only    │ 'boolean' │ 't'   │ 'Generate only types'                 │ '×'      │ false   │
-│ function-only │ 'boolean' │ 'f'   │ 'Generate only functions'             │ '×'      │ false   │
-│ grouped       │ 'boolean' │ 'g'   │ 'Print functions by group'            │ '×'      │ false   │
-│ use-interface │ 'boolean' │       │ 'Generate interface instead of type'  │ '×'      │ false   │
-└───────────────┴───────────┴───────┴───────────────────────────────────────┴──────────┴─────────┘
+┌───────────────┬───────────┬───────┬────────────────────────────────────────────────┬──────────┬─────────┐
+│ (index)       │ type      │ short │ description                                    │ required │ default │
+├───────────────┼───────────┼───────┼────────────────────────────────────────────────┼──────────┼─────────┤
+│ help          │ 'boolean' │ 'h'   │ 'Show this help message'                       │ '×'      │ false   │
+│ input         │ 'string'  │ 'i'   │ 'Input file path of swagger json'              │ '√'      │         │
+│ api           │ 'string'  │ 'a'   │ 'Generate typings match the API path'          │ '×'      │ '*'     │
+│ method        │ 'string'  │ 'm'   │ 'Generate code match the HTTP method'          │ '×'      │ '*'     │
+│ debug         │ 'boolean' │ 'd'   │ 'Print debug info'                             │ '×'      │ false   │
+│ types-only    │ 'boolean' │ 't'   │ 'Generate only types'                          │ '×'      │ false   │
+│ function-only │ 'boolean' │ 'f'   │ 'Generate only functions'                      │ '×'      │ false   │
+│ grouped       │ 'boolean' │ 'g'   │ 'Print functions by group'                     │ '×'      │ false   │
+│ use-interface │ 'boolean' │       │ 'Generate interface instead of type'           │ '×'      │ false   │
+│ request       │ 'boolean' │       │ 'Generate request.ts. `no-request` to disable' │ '×'      │ true    │
+└───────────────┴───────────┴───────┴────────────────────────────────────────────────┴──────────┴─────────┘
 ```
 
 - *`input` is required only.*

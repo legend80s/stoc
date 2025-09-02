@@ -1,2 +1,2 @@
-export { prettyPrint, swaggerToTS } from './commands/swagger-to-ts.mjs';
-export { generateTSFromSchema, generateTSFromFile } from './lib/generate.mjs';
+export { prettyPrint, swaggerToTS } from './commands/swagger-to-ts.mjs'
+export { generateTSFromFile, generateTSFromSchema } from './lib/generate.mjs'

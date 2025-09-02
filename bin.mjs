@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { parseArgs } from 'node:util';
-import { swaggerToTS } from './index.mjs';
-import { readJSONFile } from './lib/fs.mjs';
+import { parseArgs } from 'node:util'
+import { swaggerToTS } from './index.mjs'
+import { readJSONFile } from './lib/fs.mjs'
 
 const options = {
   help: {
@@ -71,16 +71,22 @@ const options = {
     description: 'Generate interface instead of type',
     required: '×',
   },
-};
+  request: {
+    type: 'boolean',
+    default: true,
+    description: 'Generate request.ts. `no-request` to disable',
+    required: '×',
+  },
+}
 
 /**
- * @param {{ parsed: { help: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
+ * @param {{ parsed: { help: boolean; request?: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
  */
 async function main({ parsed, options }) {
   if (parsed.help) {
-    await printHelp(options);
+    await printHelp(options)
 
-    return;
+    return
   }
 
   const {
@@ -89,9 +95,9 @@ async function main({ parsed, options }) {
     'types-only': typesOnly,
     'function-only': functionOnly,
     ...opts
-  } = parsed;
+  } = parsed
 
-  opts.debug && console.time('swaggerToTS');
+  opts.debug && console.time('swaggerToTS')
   // console.log('opts:', opts);
 
   await swaggerToTS({
@@ -99,15 +105,15 @@ async function main({ parsed, options }) {
     useInterface,
     typesOnly,
     functionOnly,
-  });
+  })
 
-  opts.debug && console.timeEnd('swaggerToTS');
+  opts.debug && console.timeEnd('swaggerToTS')
 }
 
-const args = process.argv.slice(2);
+const args = process.argv.slice(2)
 
 // @ts-expect-error
-main(parse(args));
+main(parse(args))
 
 /**
  *
@@ -120,26 +126,26 @@ main(parse(args));
  */
 function parse(args) {
   // @ts-expect-error
-  const { values } = parseArgs({ args, options });
+  const { values } = parseArgs({ args, options, allowNegative: true })
 
   if (values.debug) {
-    console.log('args:', args);
-    console.log('values:', values);
+    console.log('args:', args)
+    console.log('values:', values)
   }
 
-  return { parsed: values, options };
+  return { parsed: values, options }
 }
 
 // @ts-expect-error
 async function printHelp(options) {
-  const pkg = await readJSONFile('./package.json');
-  const { name, version } = pkg;
+  const pkg = await readJSONFile('./package.json')
+  const { name, version } = pkg
 
-  console.log();
-  console.log(name + '@' + version);
-  console.log();
-  console.table(options);
-  console.log();
+  console.log()
+  console.log(name + '@' + version)
+  console.log()
+  console.table(options)
+  console.log()
 
-  process.exitCode = 0;
+  process.exitCode = 0
 }
