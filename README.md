@@ -419,5 +419,5 @@ interface GetBarRespData {
 node bin.mjs -i path/to/your/openapi-xxx.json --no-request --debug
 ```
 
-- Testing: use node builtin test and coverage `node --test --experimental-test-coverage`
+- Testing: use node builtin test and coverage `node --test --experimental-test-coverage` (lines: 95.85, branch: 82.93, funcs: 97.92)
 - Linting and Formatting: powered by biome

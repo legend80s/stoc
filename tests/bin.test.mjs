@@ -1,6 +1,6 @@
-import { it, beforeEach } from 'node:test'
-import { deepStrictEqual } from 'node:assert'
+import { deepStrictEqual, match } from 'node:assert'
 import { execSync } from 'node:child_process'
+import { beforeEach, it } from 'node:test'
 
 beforeEach(() => {
   process.env.FORCE_COLOR = '0'
@@ -166,4 +166,21 @@ type IDeleteBarRespData = string;
 `
 
   deepStrictEqual(actual, expected)
+})
+
+it('Should show help message', () => {
+  const input = `node bin.mjs --help`
+  const actual = execSync(input).toString('utf8')
+
+  match(actual, /swaggered@\d+\.\d+\.\d+/)
+
+  // console.log('actual:', actual)
+  const expected = `pnpx swaggered -i path/to/openapi.json -a foo [options]`
+
+  deepStrictEqual(actual.includes('## Usage'), true)
+  deepStrictEqual(actual.includes(expected), true)
+  deepStrictEqual(actual.includes('## Options'), true)
+  deepStrictEqual(actual.includes('help'), true)
+  deepStrictEqual(actual.includes('types-only'), true)
+  deepStrictEqual(actual.includes('request'), true)
 })
