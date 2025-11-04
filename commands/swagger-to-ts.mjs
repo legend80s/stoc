@@ -9,6 +9,7 @@ import {
   prefixSpacesToEveryNewLine,
   toServiceName,
 } from '../lib/lite-lodash.mjs'
+import { logger } from '../lib/logger.mjs'
 
 /** @import {IOptions} from '../lib/typing' */
 
@@ -27,17 +28,13 @@ export async function swaggerToTS(options) {
     returnType = false,
     grouped = true,
     useInterface = false,
-    request = true,
+    request = false,
   } = options
-  if (debug) {
-    console.log('[debug] options:', options)
-  }
+  logger.log('options:', options)
 
   const filepath = input
 
-  if (debug) {
-    console.log('filepath:', filepath)
-  }
+  logger.log('filepath:', filepath)
 
   const filter = {
     api,
