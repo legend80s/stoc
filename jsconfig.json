@@ -2,8 +2,8 @@
   "compilerOptions": {
     // This is a node.js repo should not add "DOM" to the lib array.
     "lib": ["ESNext"],
-    "moduleResolution": "nodenext",
-    "module": "nodenext",
+    "moduleResolution": "bundler",
+    "module": "esnext",
     "resolveJsonModule": true,
     "target": "ES2020",
     "checkJs": true,

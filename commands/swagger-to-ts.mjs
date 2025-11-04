@@ -1,6 +1,6 @@
 import { codeToANSI } from '@shikijs/cli'
-
-import { generateTSFromFile } from '../lib/generate.mjs'
+import { readJSONFile } from '../lib/fs.mjs'
+import { generateTSFromSchema } from '../lib/generate.mjs'
 import {
   findMaxPrefixSubstring,
   groupBy,
@@ -9,6 +9,8 @@ import {
   prefixSpacesToEveryNewLine,
   verbToNoun,
 } from '../lib/lite-lodash.mjs'
+
+/** @import { IOpenAPISchema } from '../lib/typing' */
 
 /**
  * @typedef {Object} IOptions
@@ -50,15 +52,21 @@ export async function swaggerToTS(options) {
     console.log('filepath:', filepath)
   }
 
-  const result = await generateTSFromFile(filepath, {
+  const filter = {
+    api,
+    method,
+  }
+
+  // Import the JSON schema from the specified file
+  /** @type {ICommonOpenAPISchema} */
+  const jsonSchema = await readJSONFile(filepath.toString())
+
+  const result = await generateTSFromSchema(jsonSchema, {
     debug,
     typesOnly,
     functionWithExport: false,
     request,
-    filter: {
-      api,
-      method,
-    },
+    filter,
   })
 
   prettyPrint(result, {
@@ -67,21 +75,45 @@ export async function swaggerToTS(options) {
     functionOnly,
     grouped,
     useInterface,
+    filter,
+    jsonSchema,
   })
 }
 
 /**
  *
- * @param {Awaited<ReturnType<typeof generateTSFromFile>>} result
- * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped' | 'functionOnly' | 'useInterface'>} opts
+ * @param {Awaited<ReturnType<typeof generateTSFromSchema>>} result
+ * @param {Pick<IOptions, 'debug' | 'typesOnly' | 'grouped' | 'functionOnly' | 'useInterface'> & { filter: import('../lib/typing.js').IFilter; jsonSchema: ICommonOpenAPISchema }} options
  */
 export async function prettyPrint(
   result,
-  { debug, typesOnly, grouped, functionOnly, useInterface } = {}
+  {
+    debug,
+    typesOnly,
+    grouped,
+    functionOnly,
+    useInterface,
+    filter,
+    jsonSchema,
+  } = {
+    filter: {},
+    // @ts-expect-error
+    jsonSchema: {},
+  }
 ) {
   const { list, total, codeBefore } = result
-  const printSummary = () =>
-    debug && console.log(list.length, '/', total, 'API generated successfully')
+  const printSummary = () => {
+    // Print verbose summary for debug on no result.
+    if (!!list.length || !total) {
+      console.log('filter:', filter)
+      console.log('result:', result)
+      console.log('jsonSchema:', jsonSchema)
+    }
+
+    if (debug || !list.length || !total) {
+      console.log(list.length, '/', total, 'API generated.')
+    }
+  }
 
   if (!typesOnly) {
     codeBefore && (await printCode([codeBefore], { debug }))
@@ -260,7 +292,7 @@ async function printTypes(result, { debug, useInterface }) {
     content = interfaceToType(content)
   }
 
-  console.log(await highlight(content))
+  content && console.log(await highlight(content))
 }
 
 /**

@@ -1,3 +1,11 @@
+export type IOpenAPISchema =
+  typeof import('../assets/openapi-apiserver-simple.json')
+
+export interface IFilter {
+  api?: string
+  method?: string
+}
+
 /**
  * Extract the keys of an object type where their corresponding values are callable.
  *
