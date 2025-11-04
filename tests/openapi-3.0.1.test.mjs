@@ -1,15 +1,15 @@
-import { deepStrictEqual } from 'node:assert';
-import { it } from 'node:test';
+import { deepStrictEqual } from 'node:assert'
+import { it } from 'node:test'
 
-import { generateTSFromFile } from '../index.mjs';
-import { readJSONFile } from '../lib/fs.mjs';
+import { generateTSFromFile } from '../index.mjs'
+import { readJSONFile } from '../lib/fs.mjs'
 
-const fp = './assets/openapi-3.0.1.json';
+const fp = './assets/openapi-3.0.1.json'
 
 it('with openapi 3.0.1', async () => {
-  const whole = await readJSONFile(fp);
+  const whole = await readJSONFile(fp)
   // console.log('whole:', whole);
-  const { paths } = whole;
+  const { paths } = whole
 
   // const input = `node ./cli.mjs swagger -i ./assets/openapi-apiserver.json --api api_keys --method get`;
   // const actual = execSync(input).toString();
@@ -17,9 +17,9 @@ it('with openapi 3.0.1', async () => {
     filter: {
       api: 'baz',
     },
-  });
-  deepStrictEqual(actual.total, 1);
-  deepStrictEqual(actual.list.length, 1);
+  })
+  deepStrictEqual(actual.total, 1)
+  deepStrictEqual(actual.list.length, 1)
 
   /** @type {typeof actual.list} */
   const expected = [
@@ -28,7 +28,7 @@ it('with openapi 3.0.1', async () => {
         '/**\n' +
         ' * 分页查询foo作业1\n' +
         ' */\n' +
-        `export async function listFoo(params: IListFooParams) {\n` +
+        `export async function listFoo(params: IListFooParams): Promise<Data<IListFooRespData>> {\n` +
         "  return request<Data<IListFooRespData>>('/api/bar/v1/baz/foo/list', {\n" +
         "    method: 'GET',\n" +
         '    params,\n' +
@@ -74,12 +74,12 @@ it('with openapi 3.0.1', async () => {
         '}',
       group: 'foo的相关接口',
     },
-  ];
+  ]
 
   // console.log('|' + actual.list[0].responseType + '|');
 
-  deepStrictEqual(actual.list, expected);
-});
+  deepStrictEqual(actual.list, expected)
+})
 
 // import { swaggerToTS } from '../index.mjs';
 

@@ -1,6 +1,6 @@
-import { it } from 'node:test';
-import { deepStrictEqual } from 'node:assert';
-import { generateTSFromFile } from '../lib/generate.mjs';
+import { deepStrictEqual } from 'node:assert'
+import { it } from 'node:test'
+import { generateTSFromFile } from '../lib/generate.mjs'
 
 it('with filter', async () => {
   // const input = `node ./bin.mjs -i ./assets/openapi-apiserver.json --api api_keys --method get`;
@@ -13,9 +13,9 @@ it('with filter', async () => {
         method: 'get',
       },
     }
-  );
-  deepStrictEqual(actual.total, 1);
-  deepStrictEqual(actual.list.length, 1);
+  )
+  deepStrictEqual(actual.total, 1)
+  deepStrictEqual(actual.list.length, 1)
 
   // console.log('actual.list:', actual.list);
 
@@ -39,7 +39,7 @@ it('with filter', async () => {
         ' * Paged Query Bars\n' +
         ' */\n' +
         `
-export async function pagedQueryBars(params: IPagedQueryBarsParams) {
+export async function pagedQueryBars(params: IPagedQueryBarsParams): Promise<Data<IPagedQueryBarsRespData>> {
   return request<Data<IPagedQueryBarsRespData>>('/api/foo/v1/bars', {
     method: 'GET',
     params,
@@ -101,12 +101,12 @@ interface IGetBarResponse {
   updated_time: string;
 }`.trimStart(),
     },
-  ];
+  ]
 
   // console.log('|' + actual.list[0].responseType + '|');
 
-  deepStrictEqual(actual.list, expected);
-});
+  deepStrictEqual(actual.list, expected)
+})
 
 it('with both data and params', async () => {
   // const input = `node cli.mjs  swagger -i ./assets/openapi-apiserver.json  --api completions$ -m post`;
@@ -119,10 +119,11 @@ it('with both data and params', async () => {
         method: 'post',
       },
     }
-  );
+  )
+  // console.log('actual:', JSON.stringify(actual))
 
-  deepStrictEqual(actual.total, 2);
-  deepStrictEqual(actual.list.length, 2);
+  deepStrictEqual(actual.total, 2)
+  deepStrictEqual(actual.list.length, 2)
 
   // console.log('input:', input, 'end');
   // console.log('actual:', actual, 'end');
@@ -131,7 +132,7 @@ it('with both data and params', async () => {
     '  code: number;\n' +
     '  message?: string | null;\n' +
     '  data?: T;\n' +
-    '}';
+    '}'
   /** @type {typeof actual.list[0]} */
   const item1 = {
     description: 'Create Example',
@@ -154,7 +155,7 @@ interface BazCompletionRequest {
 interface BazMessage {
   content: string | null;
 }`.trimStart(),
-    responseType: ``,
+    responseType: '',
     code:
       '/**\n' +
       ' * Create Example\n' +
@@ -165,7 +166,7 @@ interface BazMessage {
     data,
   });
 }`.trimStart(),
-  };
+  }
   const item2 = {
     description: 'Create Example For Internal',
     genericResp,
@@ -183,7 +184,7 @@ interface BazCompletionRequest {
 interface BazMessage {
   content: string | null;
 }`.trimStart(),
-    responseType: ``,
+    responseType: '',
     code:
       '/**\n' +
       ' * Create Example For Internal\n' +
@@ -195,8 +196,8 @@ export async function createExampleForInternal(data: BazCompletionRequest) {
     data,
   });
 }`.trimStart(),
-  };
+  }
 
-  // console.log('actual.list:', actual.list);
-  deepStrictEqual(actual.list, [item1, item2]);
-});
+  // console.log('actual.list:', JSON.stringify(actual.list))
+  deepStrictEqual(actual.list, [item1, item2])
+})

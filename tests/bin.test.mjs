@@ -7,7 +7,7 @@ beforeEach(() => {
 })
 
 it('Use `interface`: in body', () => {
-  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --use-interface --no-request`
+  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --use-interface --no-request --no-grouped --no-return-type`
   const actual = execSync(input).toString('utf8')
   const expected = `/**
  * 分页查询foo作业3
@@ -56,7 +56,7 @@ interface IListFooRespData {
 })
 
 it('Use `interface`: should remove params in passed args because all the params has been consumed by the url (in path)', () => {
-  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --use-interface --no-request`
+  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --use-interface --no-grouped --no-request --no-return-type`
   const actual = execSync(input).toString('utf8')
   const expected = `/**
  * Delete Bar
@@ -88,7 +88,7 @@ type IDeleteBarRespData = string;
 })
 
 it('Use `type` by default: in body', () => {
-  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --no-request`
+  const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --no-request --no-return-type --no-grouped`
   const actual = execSync(input).toString('utf8')
   const expected = `/**
  * 分页查询foo作业3
@@ -137,7 +137,7 @@ type IListFooRespData = {
 })
 
 it('Use `type` by default: should remove params in passed args because all the params has been consumed by the url (in path)', () => {
-  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --no-request`
+  const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --no-request --no-return-type --no-grouped`
   const actual = execSync(input).toString('utf8')
   const expected = `/**
  * Delete Bar

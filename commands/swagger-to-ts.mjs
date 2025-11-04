@@ -7,7 +7,7 @@ import {
   interfaceToType,
   isVariableName,
   prefixSpacesToEveryNewLine,
-  verbToNoun,
+  toServiceName,
 } from '../lib/lite-lodash.mjs'
 
 /** @import {IOptions} from '../lib/typing' */
@@ -124,20 +124,6 @@ export async function prettyPrint(
   }
 
   printSummary()
-}
-
-/**
- * @param {string} longestPrefix
- */
-const toServiceName = (longestPrefix) => {
-  const path = longestPrefix.split('/').at(-1)
-
-  // console.assert(path, 'findMaxPrefixSubstring is empty', paths);
-  if (!path) {
-    return ''
-  }
-
-  return verbToNoun(path[0].toUpperCase() + path.slice(1))
 }
 
 /**
