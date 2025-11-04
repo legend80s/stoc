@@ -58,7 +58,7 @@ export const JobService = {
 // 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
 type Data<T> = {
   code: number;
-  data: T;
+  data: T; // the response is in `data` field by default, you can change it by passing the `--data-container` flag
   message: string;
 }
 
@@ -413,6 +413,10 @@ interface GetBarRespData {
 </details>
 
 ## Develop
+
+```bash
+node bin.mjs -i path/to/your/openapi-xxx.json --no-request --debug
+```
 
 - Testing: use node builtin test and coverage `node --test --experimental-test-coverage`
 - Linting and Formatting: powered by biome
