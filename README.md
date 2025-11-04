@@ -76,7 +76,7 @@ type Data<T> = {
   - [x] 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
 - [x] **Pretty Print**: 🔥 Highlight output with `shikijs`
 - [x] **Battlefield tested**: Support all Swagger OpenAPI versions and Node.js from `v16` to `v22`
-- [x] **Unit tested**: Coverage (2024-08-15) all files `line: 95.68, branch: 85.16, funcs: 95.08`
+- [x] **Unit tested**: Coverage (2025-11-04) all files `line: 95.85, branch: 82.93, funcs: 97.92`
 
 ## Get Started
 
@@ -419,5 +419,5 @@ interface GetBarRespData {
 node bin.mjs -i path/to/your/openapi-xxx.json --no-request --debug
 ```
 
-- Testing: use node builtin test and coverage `node --test --experimental-test-coverage` (lines: 95.85, branch: 82.93, funcs: 97.92)
+- Testing: use node builtin test and coverage `node --test --experimental-test-coverage`
 - Linting and Formatting: powered by biome
