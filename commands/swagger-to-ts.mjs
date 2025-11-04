@@ -10,21 +10,7 @@ import {
   verbToNoun,
 } from '../lib/lite-lodash.mjs'
 
-/** @import { IOpenAPISchema } from '../lib/typing' */
-
-/**
- * @typedef {Object} IOptions
- * @property {string} input file path to swagger json
- * @property {string} [api] only generate typings match the api path, default *
- * @property {'get' | 'post' | 'delete' | 'head' | 'put' | 'patch' | '*'} [method] only generate typings match the method, default *
- * @property {boolean} [debug] debug mode
- * @property {boolean} [typesOnly] only output types
- * @property {boolean} [functionOnly] only output functions
- * @property {boolean} [grouped] should `prettyPrint` output grouped by api, default `false`
- * @property {boolean} [useInterface] Output `interface` instead of `type`, default `false`
- * @property {boolean} [request] should generate request.ts, default `true`
- * }
- */
+/** @import {IOptions} from '../lib/typing' */
 
 /**
  * @param {IOptions} options
@@ -38,6 +24,7 @@ export async function swaggerToTS(options) {
     debug = false,
     typesOnly = false,
     functionOnly = false,
+    returnType = false,
     grouped = true,
     useInterface = false,
     request = true,
@@ -67,6 +54,7 @@ export async function swaggerToTS(options) {
     functionWithExport: false,
     request,
     filter,
+    explicitReturnTypeAttached: returnType,
   })
 
   prettyPrint(result, {
@@ -104,7 +92,7 @@ export async function prettyPrint(
   const { list, total, codeBefore } = result
   const printSummary = () => {
     // Print verbose summary for debug on no result.
-    if (!!list.length || !total) {
+    if (!list.length || !total) {
       console.warn('filter:', filter)
       console.warn('result:', result)
       console.warn('jsonSchema:', jsonSchema)
@@ -177,6 +165,7 @@ async function printByGroup(list) {
 
     const funcs = items.map((item) =>
       prefixSpacesToEveryNewLine(
+        // @ts-expect-error
         item.code
           .replace(' function ', ' ')
           .replace(

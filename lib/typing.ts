@@ -3,7 +3,50 @@ export type IOpenAPISchema =
 
 export interface IFilter {
   api?: string
-  method?: string
+  method?: 'get' | 'post' | 'delete' | 'head' | 'put' | 'patch' | '*'
+}
+
+export interface IOptions {
+  /** file path to swagger json */
+  input: string
+  /** only generate typings match the api path, default * */
+  api?: IFilter['api']
+  /** only generate typings match the method, default * */
+  method?: IFilter['method']
+  /** debug mode */
+  debug?: boolean
+  /** only output types */
+  typesOnly?: boolean
+  /** only output functions */
+  functionOnly?: boolean
+  /** Annotate functions with explicit return type */
+  returnType?: boolean
+  /** should `prettyPrint` function in group by API (Longest Common Prefix algorithm), default `true` */
+  grouped?: boolean
+  /** Output `interface` instead of `type`, default `false` */
+  useInterface?: boolean
+  /** Should generate request function, default `true` */
+  request?: boolean
+}
+
+export interface IGenerateOptions {
+  /** prefix `export` to all `interface`s. default `false` */
+  interfaceWithExport?: boolean
+  /** prefix `export` to all `function`s. default `true` */
+  functionWithExport?: boolean
+  explicitReturnTypeAttached?: IOptions['returnType']
+
+  /** prefix to all `interface`s. default `""` */
+  interfacePrefix?: string
+  /** generate types only. default `false` */
+  typesOnly?: IOptions['typesOnly']
+  /** default `false` */
+  debug?: IOptions['debug']
+  /** API filter conditions */
+  filter?: IFilter
+
+  /** should generate request.ts, default `true` */
+  request?: IOptions['request']
 }
 
 /**

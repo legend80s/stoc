@@ -6,7 +6,7 @@ import { swaggerToTS } from './index.mjs'
 import { parsed, printHelp } from './lib/args.mjs'
 
 /**
- * @param {{ parsed: { help: boolean; request?: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
+ * @param {{ parsed: { help: boolean; request?: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; 'return-type': boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
  */
 async function main({ parsed, options }) {
   if (parsed.help) {
@@ -20,6 +20,7 @@ async function main({ parsed, options }) {
     'use-interface': useInterface,
     'types-only': typesOnly,
     'function-only': functionOnly,
+    'return-type': returnType,
     ...opts
   } = parsed
 
@@ -31,6 +32,7 @@ async function main({ parsed, options }) {
     useInterface,
     typesOnly,
     functionOnly,
+    returnType,
   })
 
   opts.debug && console.timeEnd('swaggerToTS')
