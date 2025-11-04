@@ -105,9 +105,9 @@ export async function prettyPrint(
   const printSummary = () => {
     // Print verbose summary for debug on no result.
     if (!!list.length || !total) {
-      console.log('filter:', filter)
-      console.log('result:', result)
-      console.log('jsonSchema:', jsonSchema)
+      console.warn('filter:', filter)
+      console.warn('result:', result)
+      console.warn('jsonSchema:', jsonSchema)
     }
 
     if (debug || !list.length || !total) {
