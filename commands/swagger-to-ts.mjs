@@ -36,7 +36,7 @@ export async function swaggerToTS(options) {
     debug = false,
     typesOnly = false,
     functionOnly = false,
-    grouped = false,
+    grouped = true,
     useInterface = false,
     request = true,
   } = options
@@ -125,7 +125,7 @@ const toServiceName = (longestPrefix) => {
  */
 async function printByGroup(list) {
   const groups = groupBy(list, (item) => item.group)
-  // console.log('groups:', groups);
+  // console.log('groups:', groups)
 
   /** @type {string[]} */
   const codeGroups = []
@@ -133,8 +133,11 @@ async function printByGroup(list) {
     const paths = items.map((item) => item.path)
     const longestPrefix = findMaxPrefixSubstring(paths).replace(/\/$/, '')
 
-    const serviceName =
-      isVariableName(groupLabel) || toServiceName(longestPrefix)
+    /** @type {string} */
+    const serviceName = isVariableName(groupLabel)
+      ? groupLabel
+      : toServiceName(longestPrefix)
+    // console.log('groupLabel:', { groupLabel, longestPrefix, serviceName })
 
     const commonApiPrefix = longestPrefix
       ? `  prefix: '${longestPrefix}',\n`

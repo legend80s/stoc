@@ -120,7 +120,7 @@ pnpx swaggered --input ./assets/openapi.json --api foo > ./src/service/foo.ts
 │ debug         │ 'boolean' │ 'd'   │ 'Print debug info'                             │ '×'      │ false   │
 │ types-only    │ 'boolean' │ 't'   │ 'Generate only types'                          │ '×'      │ false   │
 │ function-only │ 'boolean' │ 'f'   │ 'Generate only functions'                      │ '×'      │ false   │
-│ grouped       │ 'boolean' │ 'g'   │ 'Print functions by group'                     │ '×'      │ false   │
+│ grouped       │ 'boolean' │ 'g'   │ 'Print functions by group'                     │ '×'      │ true    │
 │ use-interface │ 'boolean' │       │ 'Generate interface instead of type'           │ '×'      │ false   │
 │ request       │ 'boolean' │       │ 'Generate request.ts. `no-request` to disable' │ '×'      │ true    │
 └───────────────┴───────────┴───────┴────────────────────────────────────────────────┴──────────┴─────────┘
