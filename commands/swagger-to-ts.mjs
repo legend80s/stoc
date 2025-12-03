@@ -143,7 +143,7 @@ async function printByGroup(list) {
     const serviceName = isVariableName(groupLabel)
       ? groupLabel
       : toServiceName(longestPrefix)
-    // console.log('groupLabel:', { groupLabel, longestPrefix, serviceName })
+    // console.error('groupLabel:', { groupLabel, longestPrefix, serviceName })
 
     const commonApiPrefix = longestPrefix
       ? `  prefix: '${longestPrefix}',\n`
@@ -156,7 +156,7 @@ async function printByGroup(list) {
           .replace(' function ', ' ')
           .replace(
             longestPrefix ? longestPrefix : '__MAGIC_WONT_REPLACE__',
-            '${this.prefix}'
+            `\${${serviceName}Service.prefix}`
           )
           // '${this.prefix}/list' => `${this.prefix}/list`
           .replace(/'(\$.+?)'/, '`$1`')

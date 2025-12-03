@@ -14,7 +14,7 @@ export const appService = {
    * 创建小模型
    */
   async createLightModel(data: ICreateLightModelReqData): Promise<Data<ICreateLightModelRespData>> {
-    return request<Data<ICreateLightModelRespData>>(\`\${this.prefix}\`, {
+    return request<Data<ICreateLightModelRespData>>(\`\${appService.prefix}\`, {
       method: 'POST',
       data,
     });
