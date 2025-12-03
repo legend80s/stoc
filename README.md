@@ -67,22 +67,25 @@ type Data<T> = {
 
 ## Features
 
-- [x] **Strict TS Types**: Generate client code with `strict TS types` and keep the original `comments` in `tsdoc`
-- [x] **Filterable**: You can generate only what you need using `filter` by `api` path and HTTP `method`
-- [x] **Flexible Usage**: Can be used through CLI or programmatically
-- [x] **Flexible Format**:
-  - [x] 🔥 You can generate standalone request functions or
+- [x] **🛡️ Strict TS Types**: Generate client code with `strict TS types` and keep the original `comments` in `tsdoc`.
+- [x] **🔍 Filterable**: You can generate only what you need using `filter` by `api` path and HTTP `method`.
+- [x] **🤸‍♀️ Flexible Format**:
+  - [x] You can generate standalone request functions or
   - [x] 🔥 Grouped by path or tag. Nicely organized. Give it a try!
   - [x] 🔥 Generate **Generic Response Type** from parsing your response structure intelligently!
-- [x] **Pretty Print**: 🔥 Highlight output with `shikijs`
-- [x] **Battlefield tested**: Support all Swagger OpenAPI versions and Node.js from `v16` to `v22`
-- [x] **Unit tested**: Coverage (2025-12-2) all files `line: 96, branch: 85, funcs: 98`
+- [x] **🌍 Multiple Sources**: Both local file and remote URL are supported. `pnpx swaggered -i https://unoapi.codingmo.com/api/dd-openapi-v31.json --api 'topapi/v2/user/[c|u]'` will generate code for `topapi/v2/user/create` and `topapi/v2/user/update` from remote URL.
+- [x] **🔒 Respect JSON Schema Constraints**: Respect `minLength`, `maxLength`, `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, and `required` properties of your OpenAPI specification.
+- [x] **🎨 Pretty Print**: 🔥 Highlight output with `shikijs`.
+- [x] **⚔️ Battlefield tested**:
+  - [x] Support **all Swagger OpenAPI versions** and Node.js from `v16` to `v22`.
+  - [x] **Unit testing & E2E testing**: Coverage (2025-12-2) all files `line: 96, branch: 85, funcs: 98`.
+- [x] **🤹‍♂️ Flexible Usage**: Can be used through CLI or programmatically.
 
 ## Get Started
 
 ### 1. Use CLI *`RECOMMENDED`*
 
-Generate request code with `api` contains `foo` only:
+Generate request code with `api` path match `foo` only:
 
 #### Output to stdout
 
