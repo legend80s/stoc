@@ -10,6 +10,7 @@ import {
   toServiceName,
 } from '../lib/lite-lodash.mjs'
 import { logger } from '../lib/logger.mjs'
+import { posix } from 'path'
 
 /** @import {IOptions} from '../lib/typing' */
 
@@ -134,6 +135,9 @@ async function printByGroup(list) {
   const codeGroups = []
   Object.entries(groups).forEach(([groupLabel, items], idx) => {
     const paths = items.map((item) => item.path)
+    // console.error('paths:', paths)
+    // console.error('paths:', paths)
+
     const longestPrefix = findMaxPrefixSubstring(paths).replace(/\/$/, '')
 
     /** @type {string} */
