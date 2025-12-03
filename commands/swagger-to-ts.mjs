@@ -1,5 +1,5 @@
 import { codeToANSI } from '@shikijs/cli'
-import { readJSONFile } from '../lib/fs.mjs'
+import { readJSONFile, readJSONFromURL } from '../lib/fs.mjs'
 import { generateTSFromSchema } from '../lib/generate.mjs'
 import {
   findMaxPrefixSubstring,
@@ -43,7 +43,10 @@ export async function swaggerToTS(options) {
 
   // Import the JSON schema from the specified file
   /** @type {ICommonOpenAPISchema} */
-  const jsonSchema = await readJSONFile(filepath.toString())
+
+  const jsonSchema = /https?/.test(filepath)
+    ? await readJSONFromURL(filepath)
+    : await readJSONFile(filepath.toString())
 
   const result = await generateTSFromSchema(jsonSchema, {
     debug,
