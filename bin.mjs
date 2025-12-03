@@ -3,14 +3,20 @@
 // oxlint-disable no-unused-expressions
 // @ts-check
 import { swaggerToTS } from './index.mjs'
-import { parsed, printHelp } from './lib/args.mjs'
+import { parsed, printHelp, printVersion } from './lib/args.mjs'
 
 /**
- * @param {{ parsed: { help: boolean; request?: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; 'return-type': boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
+ * @param {{ parsed: { help: boolean; version: boolean; request?: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; 'return-type': boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
  */
 async function main({ parsed, options }) {
   if (parsed.help) {
     await printHelp(options)
+
+    return
+  }
+
+  if (parsed.version) {
+    await printVersion()
 
     return
   }
