@@ -10,7 +10,6 @@ import {
   toServiceName,
 } from '../lib/lite-lodash.mjs'
 import { logger } from '../lib/logger.mjs'
-import { posix } from 'path'
 
 /** @import {IOptions} from '../lib/typing' */
 

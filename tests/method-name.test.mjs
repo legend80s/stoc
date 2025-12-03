@@ -39,10 +39,12 @@ type ICreateLightModelReqData = {
   modelId?: number;
   /**
    * 推理服务名称,不是k8s内的名称
+   * 长度 **[2, 20]**
    */
   name: string;
   /**
    * 需要的副本数量
+   * 范围 **[0, +∞]**
    */
   replicas: number;
   resource?: {

@@ -1,14 +1,11 @@
 import { deepStrictEqual, match } from 'node:assert'
 import { execSync } from 'node:child_process'
-import { beforeEach, it } from 'node:test'
-
-beforeEach(() => {
-  process.env.FORCE_COLOR = '0'
-})
+import { it } from 'node:test'
+import { stripVTControlCharacters } from 'node:util'
 
 it('Use `interface`: in body', () => {
   const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --use-interface --no-request --no-grouped --no-return-type`
-  const actual = execSync(input).toString('utf8')
+  const actual = stripVTControlCharacters(execSync(input).toString('utf8'))
   const expected = `/**
  * 分页查询foo作业3
  */
@@ -29,10 +26,12 @@ interface Data<T> {
 interface IListFooReqData {
   /**
    * current
+   * 范围 **[1, +∞]**
    */
   current: number;
   /**
    * pageSize
+   * 范围 **[-∞, 1000]**
    */
   pageSize: number;
 }
@@ -57,7 +56,7 @@ interface IListFooRespData {
 
 it('Use `interface`: should remove params in passed args because all the params has been consumed by the url (in path)', () => {
   const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --use-interface --no-grouped --no-request --no-return-type`
-  const actual = execSync(input).toString('utf8')
+  const actual = stripVTControlCharacters(execSync(input).toString('utf8'))
   const expected = `/**
  * Delete Bar
  */
@@ -89,7 +88,7 @@ type IDeleteBarRespData = string;
 
 it('Use `type` by default: in body', () => {
   const input = `node bin.mjs -i assets/openapi-3.0.1.json --api fox/list --no-request --no-return-type --no-grouped`
-  const actual = execSync(input).toString('utf8')
+  const actual = stripVTControlCharacters(execSync(input).toString('utf8'))
   const expected = `/**
  * 分页查询foo作业3
  */
@@ -110,10 +109,12 @@ type Data<T> = {
 type IListFooReqData = {
   /**
    * current
+   * 范围 **[1, +∞]**
    */
   current: number;
   /**
    * pageSize
+   * 范围 **[-∞, 1000]**
    */
   pageSize: number;
 }
@@ -138,7 +139,7 @@ type IListFooRespData = {
 
 it('Use `type` by default: should remove params in passed args because all the params has been consumed by the url (in path)', () => {
   const input = `node bin.mjs --input ./assets/openapi-apiserver-simple.json --api bar -m delete --no-request --no-return-type --no-grouped`
-  const actual = execSync(input).toString('utf8')
+  const actual = stripVTControlCharacters(execSync(input).toString('utf8'))
   const expected = `/**
  * Delete Bar
  */
@@ -170,7 +171,7 @@ type IDeleteBarRespData = string;
 
 it('Should show help message', () => {
   const input = `node bin.mjs --help`
-  const actual = execSync(input).toString('utf8')
+  const actual = stripVTControlCharacters(execSync(input).toString('utf8'))
 
   match(actual, /swaggered@\d+\.\d+\.\d+/)
 

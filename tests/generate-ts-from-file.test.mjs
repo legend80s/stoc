@@ -50,10 +50,12 @@ export async function pagedQueryBars(params: IPagedQueryBarsParams): Promise<Dat
 interface IPagedQueryBarsParams {
   /**
    * 页码，必填，必须大于0
+   * 范围 **[1, +∞]**
    */
   page_number: number;
   /**
    * 每页数量，必填，必须大于等于1且小于21
+   * 范围 **[1, 20]**
    */
   page_size: number;
   /**
