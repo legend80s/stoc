@@ -424,3 +424,12 @@ node bin.mjs -i path/to/your/openapi-xxx.json --no-request --debug
 
 - Testing: use node builtin test and coverage `node --test --experimental-test-coverage`
 - Linting and Formatting: powered by biome
+
+## Credits
+
+Thanks to:
+
+- [json-schema-to-typescript](https://www.npmjs.com/package/json-schema-to-typescript) Compile JSON Schema to TypeScript typings.
+- [@apidevtools/json-schema-ref-parser](https://www.npmjs.com/package/@apidevtools/json-schema-ref-parser) Parse, Resolve, and Dereference JSON Schema $ref pointers.
+- [json-schema-traverse](https://www.npmjs.com/package/json-schema-traverse) Traverse JSON Schema passing each schema object to callback.
+- [@shikijs/cli](https://www.npmjs.com/package/@shikijs/cli) A CLI for shiki, A beautiful syntax highlighter based on TextMate grammars, accurate and powerful.
