@@ -21,10 +21,6 @@
   },
   "author": "legend80s",
   "license": "ISC",
-  "prettier": {
-    "trailingComma": "es5",
-    "singleQuote": true
-  },
   "homepage": "https://github.com/legend80s/stoc",
   "repository": {
     "type": "git",
@@ -45,7 +41,8 @@
     "@apidevtools/json-schema-ref-parser": "11.6.1",
     "@shikijs/cli": "1.6.0",
     "json-schema-to-typescript": "15.0.0",
-    "json-schema-traverse": "1.0.0"
+    "json-schema-traverse": "1.0.0",
+    "openapi-types": "^12.1.3"
   },
   "devDependencies": {
     "git-commit-msg-linter": "^5.0.8"

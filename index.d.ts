@@ -1,11 +1,17 @@
-interface ICommonOpenAPISchema {
-  openapi?: string
-  info?: Info
-  servers?: Server[]
-  paths: Paths
-  components: Components
-  basePath?: string
-}
+import { OpenAPIV2, OpenAPIV3, OpenAPIV3_1 } from 'openapi-types'
+
+export type ICommonOpenAPISchema =
+  | OpenAPIV2.Document
+  | OpenAPIV3.Document
+  | OpenAPIV3_1.Document
+// interface ICommonOpenAPISchema {
+//   openapi?: string
+//   info?: Info
+//   servers?: Server[]
+//   paths: Paths
+//   components: Components
+//   basePath?: string
+// }
 
 interface Components {
   schemas: Schemas

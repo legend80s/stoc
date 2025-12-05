@@ -12,6 +12,7 @@ import {
 import { logger } from '../lib/logger.mjs'
 
 /** @import {IOptions} from '../lib/typing' */
+/** @import {ICommonOpenAPISchema} from '../index' */
 
 /**
  * @param {IOptions} options
@@ -99,7 +100,7 @@ export async function prettyPrint(
     }
 
     if (debug || !list.length || !total) {
-      console.log(list.length, '/', total, 'API generated.')
+      console.warn(list.length, '/', total, 'API generated.')
     }
   }
 
