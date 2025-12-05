@@ -185,3 +185,10 @@ it('Should show help message', () => {
   deepStrictEqual(actual.includes('types-only'), true)
   deepStrictEqual(actual.includes('request'), true)
 })
+
+it('Should show version', () => {
+  const input = `node bin.mjs -v`
+  const actual = stripVTControlCharacters(execSync(input).toString('utf8'))
+
+  match(actual, /swaggered@\d+\.\d+\.\d+/)
+})
