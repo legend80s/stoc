@@ -418,6 +418,9 @@ interface GetBarRespData {
 
 ## Develop
 
+- `npm` as package manager.
+- start dev
+
 ```bash
 node bin.mjs -i path/to/your/openapi-xxx.json --no-request --debug
 ```
