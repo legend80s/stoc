@@ -149,7 +149,7 @@ it('with both data and params', async () => {
     //   "api-key"?: string;
     // }`.trimStart(),
     requestBodyType: `
-interface BazCompletionRequest {
+interface CreateExampleReqData {
   model: string;
   messages: BazMessage[];
   temperature?: number | null;
@@ -162,7 +162,7 @@ interface BazMessage {
       '/**\n' +
       ' * Create Example\n' +
       ' */\n' +
-      `export async function createExample(data: BazCompletionRequest) {
+      `export async function createExample(data: CreateExampleReqData) {
   return request('/api/foo/v1/baz/completions', {
     method: 'POST',
     data,
@@ -178,7 +178,7 @@ interface BazMessage {
     method: 'POST',
     requestParametersType: ``,
     requestBodyType: `
-interface BazCompletionRequest {
+interface CreateExampleForInternalReqData {
   model: string;
   messages: BazMessage[];
   temperature?: number | null;
@@ -192,7 +192,7 @@ interface BazMessage {
       ' * Create Example For Internal\n' +
       ' */\n' +
       `
-export async function createExampleForInternal(data: BazCompletionRequest) {
+export async function createExampleForInternal(data: CreateExampleForInternalReqData) {
   return request('/api/foo/v1/controlled/baz/completions', {
     method: 'POST',
     data,

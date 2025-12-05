@@ -78,7 +78,7 @@ type Data<T> = {
 - [x] **🎨 Pretty Print**: 🔥 Highlight output with `shikijs`.
 - [x] **⚔️ Battlefield tested**:
   - [x] Support **all Swagger OpenAPI versions** and Node.js from `v16` to `v22`.
-  - [x] **Unit testing & E2E testing**: Coverage (2025-12-2) all files `line: 96, branch: 85, funcs: 98`.
+  - [x] **Unit testing & E2E testing**: Coverage (2025-12-5) all files `line: 96, branch: 89, funcs: 99`.
 - [x] **🤹‍♂️ Flexible Usage**: Can be used through CLI or programmatically.
 
 ## Get Started

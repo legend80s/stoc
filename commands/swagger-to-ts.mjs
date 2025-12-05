@@ -212,7 +212,7 @@ async function printCode(codes, { debug }) {
  */
 async function printTypes(result, { debug, useInterface }) {
   const unique = new Set()
-  const types = []
+  let types = []
   let genericResp = ''
 
   for (let i = 0; i < result.length; i++) {
@@ -251,7 +251,7 @@ async function printTypes(result, { debug, useInterface }) {
 
     if (responseType && !unique.has(responseType)) {
       unique.add(responseType)
-      types.push(responseType.replace('__Resp__', ''))
+      types.push(responseType)
     }
 
     // debug &&
@@ -261,9 +261,20 @@ async function printTypes(result, { debug, useInterface }) {
     //   );
   }
 
+  types = types
+    .map((type) => type.replaceAll('__Resp__', ''))
+    // 一个 type 可能包含多个 interface，所以需要拆分
+    .flatMap((type) => type.split(/(?=interface\s+\w+)/g))
+
+  const uniqTypes = Array.from(new Set(types))
+
+  // console.error('types:', types.length)
+  // console.error('uniq types:', uniqTypes.length)
+  // console.error('uniqTypes:', uniqTypes)
+
   let content = [genericResp]
     .filter(Boolean)
-    .concat(types)
+    .concat(uniqTypes)
     .map((type) => type.trim())
     .join('\n\n')
 

@@ -6,7 +6,7 @@ import { generateTSFromFile } from '../index.mjs'
 const fp = './assets/openapi-3.0.1.json'
 
 it('with openapi 3.0.1', async () => {
-  // const input = `node ./cli.mjs swagger -i ./assets/openapi-apiserver.json --api api_keys --method get`;
+  // const input = `node bin.mjs -i ./assets/openapi-3.0.1.json --api baz`;
   // const actual = execSync(input).toString();
   const actual = await generateTSFromFile(fp, {
     filter: {
