@@ -423,6 +423,11 @@ interface GetBarRespData {
 
 ```bash
 node bin.mjs -i path/to/your/openapi-xxx.json --no-request --debug
+
+# openapi v3
+node bin.mjs -i https://petstore3.swagger.io/api/v3/openapi.json --api pet -m put
+# swagger v2
+node bin.mjs -i https://petstore.swagger.io/v2/swagger.json --api pet -m put
 ```
 
 - Testing: use node builtin test and coverage `node --test --experimental-test-coverage`
