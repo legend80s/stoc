@@ -105,7 +105,7 @@ export async function prettyPrint(
     }
   }
 
-  const header = parsed.parsed.header
+  const header = parsed.header
 
   if (!typesOnly) {
     codeBefore &&

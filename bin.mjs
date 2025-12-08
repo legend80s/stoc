@@ -3,12 +3,13 @@
 // oxlint-disable no-unused-expressions
 // @ts-check
 import { swaggerToTS } from './index.mjs'
-import { parsed, printHelp, printVersion } from './lib/args.mjs'
+import { options, parsed, printHelp, printVersion } from './lib/args.mjs'
 
 /**
- * @param {{ parsed: { help: boolean; version: boolean; request?: boolean; 'use-interface': boolean, 'types-only': boolean, 'function-only': boolean; 'return-type': boolean } & Parameters<typeof swaggerToTS>[0]; options: any }} opts
+ * @param {typeof parsed} parsed
+ * @param {typeof options} options
  */
-async function main({ parsed, options }) {
+async function main(parsed, options) {
   if (parsed.help) {
     await printHelp(options)
 
@@ -35,16 +36,17 @@ async function main({ parsed, options }) {
 
   await swaggerToTS({
     ...opts,
+
     useInterface,
     typesOnly,
     functionOnly,
     returnType,
+
+    // @ts-expect-error Type 'string | undefined' is not assignable to type '"*" | "get" | "post" | "delete" | "head" | "put" | "patch" | undefined'.
+    method: parsed.method,
   })
 
   opts.debug && console.timeEnd('swaggerToTS')
 }
 
-main(
-  // @ts-expect-error
-  parsed
-)
+main(parsed, options)

@@ -9,7 +9,7 @@ export interface IFilter {
 export type IParsedArgs = {
   help: boolean
   version: boolean
-  input?: string
+  input: string
   api?: string
   method?: string
   debug: boolean
