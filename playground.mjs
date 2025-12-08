@@ -18,7 +18,8 @@
 
 // --------------------------
 // import { compile } from 'json-schema-to-typescript';
-import { genGenericRespType } from './lib/lite-lodash.mjs';
+import { genGenericRespType } from './lib/lite-lodash.mjs'
+
 const properties = {
   total: {
     type: 'integer',
@@ -32,7 +33,7 @@ const properties = {
     type: 'integer',
     format: 'int32',
   },
-};
+}
 
 const schema = {
   title: '',
@@ -40,20 +41,20 @@ const schema = {
   type: 'object',
   properties: {
     code: { type: 'integer', format: 'int32', title: '' },
-    data: { type: 'object', properties, title: 'listFooRespData' },
+    data: { type: 'object', properties, title: 'listFooResponseData' },
     errorMsg: { type: 'string', title: '' },
     success: { type: 'boolean', title: '' },
   },
-};
+}
 // export interface ExampleSchema {
 //   code?: number;
-//   data?: ListFooRespData;
+//   data?: ListFooResponseData;
 //   errorMsg?: string;
 //   success?: boolean;
 // }
 
-const type = genGenericRespType(schema);
-console.log('type:', type);
+const type = genGenericRespType(schema)
+console.log('type:', type)
 // --------------------------
 
 // import { prettyPrint, generateTSFromSchema } from './index.mjs';

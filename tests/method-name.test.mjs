@@ -13,8 +13,8 @@ export const appService = {
   /**
    * 创建小模型
    */
-  async createLightModel(data: ICreateLightModelReqData): Promise<Data<ICreateLightModelRespData>> {
-    return request<Data<ICreateLightModelRespData>>(\`\${appService.prefix}\`, {
+  async createLightModel(data: ICreateLightModelRequestData): Promise<Data<ICreateLightModelResponseData>> {
+    return request<Data<ICreateLightModelResponseData>>(\`\${appService.prefix}\`, {
       method: 'POST',
       data,
     });
@@ -31,7 +31,7 @@ type Data<T> = {
   success?: boolean;
 }
 
-type ICreateLightModelReqData = {
+type ICreateLightModelRequestData = {
   envList?: {
     key?: string;
     value?: string;
@@ -55,7 +55,7 @@ type ICreateLightModelReqData = {
   };
 }
 
-type ICreateLightModelRespData = {
+type ICreateLightModelResponseData = {
   [k: string]: unknown;
 }
 

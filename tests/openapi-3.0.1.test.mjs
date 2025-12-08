@@ -23,8 +23,8 @@ it('with openapi 3.0.1', async () => {
         '/**\n' +
         ' * 分页查询foo作业1\n' +
         ' */\n' +
-        `export async function listFoo(params: IListFooParams): Promise<Data<IListFooRespData>> {\n` +
-        "  return request<Data<IListFooRespData>>('/api/bar/v1/baz/foo/list', {\n" +
+        `export async function listFoo(params: IListFooParams): Promise<Data<IListFooResponseData>> {\n` +
+        "  return request<Data<IListFooResponseData>>('/api/bar/v1/baz/foo/list', {\n" +
         "    method: 'GET',\n" +
         '    params,\n' +
         '  });\n' +
@@ -46,7 +46,7 @@ it('with openapi 3.0.1', async () => {
         '  };\n' +
         '}',
       responseType:
-        'interface IListFooRespData {\n' +
+        'interface IListFooResponseData {\n' +
         '  total?: number;\n' +
         '  pageSize?: number;\n' +
         '  current?: number;\n' +

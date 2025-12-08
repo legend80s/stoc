@@ -34,15 +34,15 @@ export const petService = {
   /**
    * Update an existing pet.
    */
-  async updatePet(data: IUpdatePetReqData): Promise<IUpdatePetRespData> {
-    return request<IUpdatePetRespData>(\`$\{petService.prefix}\`, {
+  async updatePet(data: IUpdatePetRequestData): Promise<IUpdatePetResponseData> {
+    return request<IUpdatePetResponseData>(\`$\{petService.prefix}\`, {
       method: 'PUT',
       data,
     });
   }
 };
 
-type IUpdatePetReqData = {
+type IUpdatePetRequestData = {
   id?: number;
   name: string;
   category?: {
@@ -60,7 +60,7 @@ type IUpdatePetReqData = {
   status?: "available" | "pending" | "sold";
 }
 
-type IUpdatePetRespData = {
+type IUpdatePetResponseData = {
   id?: number;
   name: string;
   category?: {

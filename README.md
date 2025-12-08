@@ -30,7 +30,7 @@ export const JobService = {
    * Comment about getJobDetail
    */
   async getJobDetail(params: IGetJobDetailParams) {
-    return request<Data<IGetJobDetailRespData>>(`${this.prefix}/${params.jobId}`, {
+    return request<Data<IGetJobDetailResponseData>>(`${this.prefix}/${params.jobId}`, {
       method: 'GET',
     });
   },
@@ -38,10 +38,10 @@ export const JobService = {
   /**
    * Comment about createJob
    */
-  async createJob(data: ICreateJobReqData) {
-    return request<Data<ICreateJobRespData>>(this.prefix, {
+  async createJob(data: ICreateJobRequestData) {
+    return request<Data<ICreateJobResponseData>>(this.prefix, {
       method: 'POST',
-      data: ICreateJobReqData
+      data: ICreateJobRequestData
     });
   },
 
@@ -49,7 +49,7 @@ export const JobService = {
    * Comment about stopJob
    */
   async stopJob(params: IStopJobParams) {
-    return request<Data<IStopJobRespData>>(`${this.prefix}/${params.jobId}`, {
+    return request<Data<IStopJobResponseData>>(`${this.prefix}/${params.jobId}`, {
       method: 'POST',
     });
   },
@@ -343,7 +343,7 @@ interface IGeneratedItem
 
 ```typescript
 export async function list(params: PagedQueryBarsParams) {
-  return request<Data<PagedQueryBarsRespData>>('/api/foo/v1/bars', {
+  return request<Data<PagedQueryBarsResponseData>>('/api/foo/v1/bars', {
     method: 'GET',
     params,
   });
@@ -385,16 +385,16 @@ interface PagedQueryBarsParams {
 interface BaseResponsePagedQueryBarsResponse {
   code: number;
   message?: string | null;
-  data?: PagedQueryBarsRespData | null;
+  data?: PagedQueryBarsResponseData | null;
 }
-interface PagedQueryBarsRespData {
+interface PagedQueryBarsResponseData {
   /**
    * bars总数
    */
   total: number;
-  bars: GetBarRespData[];
+  bars: GetBarResponseData[];
 }
-interface GetBarRespData {
+interface GetBarResponseData {
   /**
    * bar id，必定存在
    */

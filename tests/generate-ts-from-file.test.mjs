@@ -39,8 +39,8 @@ it('with filter', async () => {
         ' * Paged Query Bars\n' +
         ' */\n' +
         `
-export async function pagedQueryBars(params: IPagedQueryBarsParams): Promise<Data<IPagedQueryBarsRespData>> {
-  return request<Data<IPagedQueryBarsRespData>>('/api/foo/v1/bars', {
+export async function pagedQueryBars(params: IPagedQueryBarsParams): Promise<Data<IPagedQueryBarsResponseData>> {
+  return request<Data<IPagedQueryBarsResponseData>>('/api/foo/v1/bars', {
     method: 'GET',
     params,
   });
@@ -77,7 +77,7 @@ interface IPagedQueryBarsParams {
 }`.trimStart(),
       requestBodyType: '',
 
-      responseType: `interface IPagedQueryBarsRespData {
+      responseType: `interface IPagedQueryBarsResponseData {
   /**
    * Bars总数
    */
@@ -149,7 +149,7 @@ it('with both data and params', async () => {
     //   "api-key"?: string;
     // }`.trimStart(),
     requestBodyType: `
-interface CreateExampleReqData {
+interface CreateExampleRequestData {
   model: string;
   messages: BazMessage[];
   temperature?: number | null;
@@ -162,7 +162,7 @@ interface BazMessage {
       '/**\n' +
       ' * Create Example\n' +
       ' */\n' +
-      `export async function createExample(data: CreateExampleReqData) {
+      `export async function createExample(data: CreateExampleRequestData) {
   return request('/api/foo/v1/baz/completions', {
     method: 'POST',
     data,
@@ -178,7 +178,7 @@ interface BazMessage {
     method: 'POST',
     requestParametersType: ``,
     requestBodyType: `
-interface CreateExampleForInternalReqData {
+interface CreateExampleForInternalRequestData {
   model: string;
   messages: BazMessage[];
   temperature?: number | null;
@@ -192,7 +192,7 @@ interface BazMessage {
       ' * Create Example For Internal\n' +
       ' */\n' +
       `
-export async function createExampleForInternal(data: CreateExampleForInternalReqData) {
+export async function createExampleForInternal(data: CreateExampleForInternalRequestData) {
   return request('/api/foo/v1/controlled/baz/completions', {
     method: 'POST',
     data,

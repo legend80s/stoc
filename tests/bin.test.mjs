@@ -9,8 +9,8 @@ it('Use `interface`: in body', () => {
   const expected = `/**
  * 分页查询foo作业3
  */
-async function listFoo(data: IListFooReqData) {
-  return request<Data<IListFooRespData>>('/api/account/v1/fox/list', {
+async function listFoo(data: IListFooRequestData) {
+  return request<Data<IListFooResponseData>>('/api/account/v1/fox/list', {
     method: 'POST',
     data,
   });
@@ -23,7 +23,7 @@ interface Data<T> {
   success?: boolean;
 }
 
-interface IListFooReqData {
+interface IListFooRequestData {
   /**
    * current
    * 范围 **[1, +∞]**
@@ -36,7 +36,7 @@ interface IListFooReqData {
   pageSize: number;
 }
 
-interface IListFooRespData {
+interface IListFooResponseData {
   total?: number;
   pageSize?: number;
   current?: number;
@@ -61,12 +61,12 @@ it('Use `interface`: should remove params in passed args because all the params 
  * Delete Bar
  */
 async function deleteBar(params: IDeleteBarParamsInPath) {
-  return request<Data<IDeleteBarRespData>>(\`/api/foo/v1/bar/\${params.bar_id}/baz/\${params.baz_id}\`, {
+  return request<Data<IDeleteBarResponseData>>(\`/api/foo/v1/bar/\${params.bar_id}/baz/\${params.baz_id}\`, {
     method: 'DELETE'
   });
 }
 
-type DeleteBarRespData = string;
+type DeleteBarResponseData = string;
 
 interface Data<T> {
   code: number;
@@ -79,7 +79,7 @@ interface IDeleteBarParamsInPath {
   baz_id: number;
 }
 
-type IDeleteBarRespData = string;
+type IDeleteBarResponseData = string;
 
 `
 
@@ -92,8 +92,8 @@ it('Use `type` by default: in body', () => {
   const expected = `/**
  * 分页查询foo作业3
  */
-async function listFoo(data: IListFooReqData) {
-  return request<Data<IListFooRespData>>('/api/account/v1/fox/list', {
+async function listFoo(data: IListFooRequestData) {
+  return request<Data<IListFooResponseData>>('/api/account/v1/fox/list', {
     method: 'POST',
     data,
   });
@@ -106,7 +106,7 @@ type Data<T> = {
   success?: boolean;
 }
 
-type IListFooReqData = {
+type IListFooRequestData = {
   /**
    * current
    * 范围 **[1, +∞]**
@@ -119,7 +119,7 @@ type IListFooReqData = {
   pageSize: number;
 }
 
-type IListFooRespData = {
+type IListFooResponseData = {
   total?: number;
   pageSize?: number;
   current?: number;
@@ -144,12 +144,12 @@ it('Use `type` by default: should remove params in passed args because all the p
  * Delete Bar
  */
 async function deleteBar(params: IDeleteBarParamsInPath) {
-  return request<Data<IDeleteBarRespData>>(\`/api/foo/v1/bar/\${params.bar_id}/baz/\${params.baz_id}\`, {
+  return request<Data<IDeleteBarResponseData>>(\`/api/foo/v1/bar/\${params.bar_id}/baz/\${params.baz_id}\`, {
     method: 'DELETE'
   });
 }
 
-type DeleteBarRespData = string;
+type DeleteBarResponseData = string;
 
 type Data<T> = {
   code: number;
@@ -162,7 +162,7 @@ type IDeleteBarParamsInPath = {
   baz_id: number;
 }
 
-type IDeleteBarRespData = string;
+type IDeleteBarResponseData = string;
 
 `
 

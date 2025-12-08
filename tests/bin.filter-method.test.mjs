@@ -15,8 +15,8 @@ export const petService = {
   /**
    * Update an existing pet.
    */
-  async updatePet(data: IUpdatePetReqData): Promise<IUpdatePetRespData> {
-    return request<IUpdatePetRespData>(\`\${petService.prefix}\`, {
+  async updatePet(data: IUpdatePetRequestData): Promise<IUpdatePetResponseData> {
+    return request<IUpdatePetResponseData>(\`\${petService.prefix}\`, {
       method: 'PUT',
       data,
     });
@@ -25,8 +25,8 @@ export const petService = {
   /**
    * Add a new pet to the store.
    */
-  async addPet(data: IAddPetReqData): Promise<IUpdatePetRespData> {
-    return request<IUpdatePetRespData>(\`\${petService.prefix}\`, {
+  async addPet(data: IAddPetRequestData): Promise<IUpdatePetResponseData> {
+    return request<IUpdatePetResponseData>(\`\${petService.prefix}\`, {
       method: 'POST',
       data,
     });
@@ -35,8 +35,8 @@ export const petService = {
   /**
    * Updates a pet in the store with form data.
    */
-  async updatePetWithForm(params: IUpdatePetWithFormParams): Promise<IUpdatePetRespData> {
-    return request<IUpdatePetRespData>(\`\${petService.prefix}/$\{params.petId}\`, {
+  async updatePetWithForm(params: IUpdatePetWithFormParams): Promise<IUpdatePetResponseData> {
+    return request<IUpdatePetResponseData>(\`\${petService.prefix}/$\{params.petId}\`, {
       method: 'POST',
       params,
     });
@@ -45,15 +45,15 @@ export const petService = {
   /**
    * Uploads an image.
    */
-  async uploadFile(params: IUploadFileParams): Promise<IUploadFileRespData> {
-    return request<IUploadFileRespData>(\`\${petService.prefix}/$\{params.petId}/uploadImage\`, {
+  async uploadFile(params: IUploadFileParams): Promise<IUploadFileResponseData> {
+    return request<IUploadFileResponseData>(\`\${petService.prefix}/$\{params.petId}/uploadImage\`, {
       method: 'POST',
       params,
     });
   }
 };
 
-type IUpdatePetReqData = {
+type IUpdatePetRequestData = {
   id?: number;
   name: string;
   category?: {
@@ -71,7 +71,7 @@ type IUpdatePetReqData = {
   status?: "available" | "pending" | "sold";
 }
 
-type IUpdatePetRespData = {
+type IUpdatePetResponseData = {
   id?: number;
   name: string;
   category?: {
@@ -89,7 +89,7 @@ type IUpdatePetRespData = {
   status?: "available" | "pending" | "sold";
 }
 
-type IAddPetReqData = {
+type IAddPetRequestData = {
   id?: number;
   name: string;
   category?: {
@@ -133,7 +133,7 @@ type IUploadFileParams = {
   additionalMetadata?: string;
 }
 
-type IUploadFileRespData = {
+type IUploadFileResponseData = {
   code?: number;
   type?: string;
   message?: string;
