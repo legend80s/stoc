@@ -6,6 +6,23 @@ export interface IFilter {
   method?: 'get' | 'post' | 'delete' | 'head' | 'put' | 'patch' | '*'
 }
 
+export type IParsedArgs = {
+  help: boolean
+  version: boolean
+  input?: string
+  api?: string
+  method?: string
+  debug: boolean
+  verbose: boolean
+  'types-only': boolean
+  'function-only': boolean
+  'return-type': boolean
+  grouped: boolean
+  'use-interface': boolean
+  request: boolean
+  header?: string
+}
+
 export interface IOptions {
   /** file path to swagger json */
   input: string

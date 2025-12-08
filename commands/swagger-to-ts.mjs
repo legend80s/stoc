@@ -10,6 +10,7 @@ import {
   toServiceName,
 } from '../lib/lite-lodash.mjs'
 import { logger } from '../lib/logger.mjs'
+import { parsed } from '../lib/args.mjs'
 
 /** @import {IOptions} from '../lib/typing' */
 /** @import {ICommonOpenAPISchema} from '../index' */
@@ -104,15 +105,23 @@ export async function prettyPrint(
     }
   }
 
+  const header = parsed.parsed.header
+
   if (!typesOnly) {
-    codeBefore && (await printCode([codeBefore], { debug }))
+    codeBefore &&
+      (await printCode(prefixHeader(header, [codeBefore]), {
+        debug,
+      }))
 
     if (grouped) {
-      await printByGroup(list)
+      await printByGroup(header, list)
     } else {
       await printCode(
-        // @ts-expect-error code must exist when typesOnly is false
-        list.map((item) => item.code),
+        prefixHeader(
+          header,
+          // @ts-expect-error code must exist when typesOnly is false
+          list.map((item) => item.code)
+        ),
         { debug }
       )
     }
@@ -128,9 +137,21 @@ export async function prettyPrint(
 }
 
 /**
+ * Add header to code if provided
+ *
+ * @param {string | undefined} header
+ * @param {string[]} codes
+ * @returns {string[]}
+ */
+function prefixHeader(header, codes) {
+  return header ? [`${header}\n`].concat(codes) : codes
+}
+
+/**
+ * @param {string | undefined} header
  * @param {IGeneratedItem[]} list
  */
-async function printByGroup(list) {
+async function printByGroup(header, list) {
   const groups = groupBy(list, (item) => item.group)
   // console.log('groups:', groups)
 
@@ -180,7 +201,9 @@ async function printByGroup(list) {
     )
   })
 
-  console.log(await highlight(codeGroups.join('\n\n')))
+  console.log(
+    await highlight((header ? `${header}\n\n` : '') + codeGroups.join('\n\n'))
+  )
 }
 
 /**
