@@ -9,7 +9,7 @@ it('Use `interface`: in body', () => {
   const expected = `/**
  * 分页查询foo作业3
  */
-async function listFoo(data: IListFooRequestData) {
+export async function listFoo(data: IListFooRequestData) {
   return request<Data<IListFooResponseData>>('/api/account/v1/fox/list', {
     method: 'POST',
     data,
@@ -60,7 +60,7 @@ it('Use `interface`: should remove params in passed args because all the params 
   const expected = `/**
  * Delete Bar
  */
-async function deleteBar(params: IDeleteBarParamsInPath) {
+export async function deleteBar(params: IDeleteBarParamsInPath) {
   return request<Data<IDeleteBarResponseData>>(\`/api/foo/v1/bar/\${params.bar_id}/baz/\${params.baz_id}\`, {
     method: 'DELETE'
   });
@@ -92,7 +92,7 @@ it('Use `type` by default: in body', () => {
   const expected = `/**
  * 分页查询foo作业3
  */
-async function listFoo(data: IListFooRequestData) {
+export async function listFoo(data: IListFooRequestData) {
   return request<Data<IListFooResponseData>>('/api/account/v1/fox/list', {
     method: 'POST',
     data,
@@ -143,7 +143,7 @@ it('Use `type` by default: should remove params in passed args because all the p
   const expected = `/**
  * Delete Bar
  */
-async function deleteBar(params: IDeleteBarParamsInPath) {
+export async function deleteBar(params: IDeleteBarParamsInPath) {
   return request<Data<IDeleteBarResponseData>>(\`/api/foo/v1/bar/\${params.bar_id}/baz/\${params.baz_id}\`, {
     method: 'DELETE'
   });

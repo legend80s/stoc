@@ -53,7 +53,7 @@ export async function swaggerToTS(options) {
   const result = await generateTSFromSchema(jsonSchema, {
     debug,
     typesOnly,
-    functionWithExport: false,
+    functionWithExport: !grouped,
     request,
     filter,
     explicitReturnTypeAttached: returnType,
