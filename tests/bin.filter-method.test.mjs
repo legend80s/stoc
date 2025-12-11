@@ -10,7 +10,7 @@ it('should work when method is a regexp', () => {
 
   const expected = `/** pet */
 export const petService = {
-  prefix: '/api/v3/pet',
+  prefix: '/api/v3/pet' as const,
 
   /**
    * Update an existing pet.

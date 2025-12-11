@@ -171,7 +171,7 @@ async function printByGroup(header, list) {
     // console.error('groupLabel:', { groupLabel, longestPrefix, serviceName })
 
     const commonApiPrefix = longestPrefix
-      ? `  prefix: '${longestPrefix}',\n`
+      ? `  prefix: '${longestPrefix}' as const,\n`
       : ''
 
     const funcs = items.map((item) =>

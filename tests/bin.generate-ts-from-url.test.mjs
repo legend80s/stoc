@@ -29,7 +29,7 @@ it('should work when input is a remote url', () => {
 
   const expected = `/** pet */
 export const petService = {
-  prefix: '/api/v3/pet',
+  prefix: '/api/v3/pet' as const,
 
   /**
    * Update an existing pet.

@@ -10,7 +10,7 @@ it('should work when using the v2 API', () => {
 
   const expected = `/** pet */
 export const petService = {
-  prefix: '/v2/pet',
+  prefix: '/v2/pet' as const,
 
   /**
    * Update an existing pet

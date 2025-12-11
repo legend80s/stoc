@@ -8,7 +8,7 @@ it('should generate camelCased method name', () => {
   const actual = stripVTControlCharacters(execSync(input).toString('utf8'))
   const expected = `/** app */
 export const appService = {
-  prefix: '/api/lm/lightModel/create',
+  prefix: '/api/lm/lightModel/create' as const,
 
   /**
    * 创建小模型
